@@ -26,14 +26,22 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                 className={"bg-taskbar-gradient z-1 w-full h-[26px] text-xp-taskbar ml-[-4px] z-1 " +
                     "border border-xp-taskbar"}
             >.</div>
-            <div className={"bg-taskbar-setting-gradient h-[26px] w-[85px] border border-xp-taskbar_setting"}>
+            <div className={"bg-taskbar-setting-gradient h-[26px] w-[85px] border border-xp-taskbar_setting " +
+                "flex flex-wrap justify-start items-center"}>
                 <Image
                     src={isMute ? "/xp_speaker_mute.webp" : "/xp_speaker.webp"}
                     alt={"windowsXP speaker icon"}
                     width={200}
                     height={400}
-                    className={"w-6 cursor-pointer hover:brightness-110 z-2"}
+                    className={"w-6 mt-[2px] cursor-pointer hover:brightness-110 z-2"}
                     onClick={() => setIsMute(prev => !prev)}
+                />
+                <Image
+                    src={"/xp_security_error.webp"}
+                    alt={"windowsXP security risk awareness icon"}
+                    width={200}
+                    height={400}
+                    className={"w-3 h-3 cursor-pointer hover:brightness-110 z-2"}
                 />
             </div>
         </div>
