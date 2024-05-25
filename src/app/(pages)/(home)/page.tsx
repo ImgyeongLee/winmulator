@@ -1,7 +1,7 @@
 "use client"
 
 import Navbar from "@/components/navbar";
-import Footer from "@/components/footer";
+import Taskbar from "@/components/taskbar";
 
 export default function Home() {
     return (
@@ -12,7 +12,7 @@ export default function Home() {
                     Main
                 </div>
             </div>
-            <Footer/>
+            <Taskbar/>
         </main>
     );
 }
