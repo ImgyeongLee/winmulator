@@ -8,10 +8,15 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: { // 7c2d12, 431407, ea580c, red: 991b1b
+        "xp-taskbar" : "",
+        "w7-taskbar": "",
+        "w2000-taskbar": "",
+      },
       backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+        'xp': "url('/windowsXP.webp')",
+        'w7': "url('/windows7.webp')",
+        'w2000': "url('/windows2000.webp')",
       },
     },
   },
