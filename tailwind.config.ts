@@ -9,7 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        "xp-taskbar" : "",
+        "xp-taskbar" : "#225DDA",
         "w7-taskbar": "",
         "w2000-taskbar": "",
       },
