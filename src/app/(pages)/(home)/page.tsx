@@ -10,7 +10,7 @@ export default function Home() {
                     Main
                 </div>
             </div>
-            <Taskbar/>
+            <Taskbar theme="xp"/>
         </main>
     );
 }
