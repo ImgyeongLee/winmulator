@@ -16,11 +16,11 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
             className={`text-center text-white flex flex-row justify-between items-center`}
         >
             <Image
-                src="/windowsXP_taskbar.webp"
+                src="/windowsXP_taskbar_start.webp"
                 alt="windowsXP taskbar"
                 width={200}
                 height={400}
-                className="w-12 p-0 m-0 cursor-pointer hover:brightness-110 z-10"
+                className="h-[26px] w-[80px] p-0 m-0 cursor-pointer hover:brightness-110 z-10"
             />
             <div
                 className={"bg-taskbar-gradient z-1 w-full h-[26px] text-xp-taskbar ml-[-4px] z-1 " +
