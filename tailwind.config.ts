@@ -10,6 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         "xp-taskbar" : "#225DDA",
+        "xp-taskbar_setting": "#1390e9",
         "w7-taskbar": "",
         "w2000-taskbar": "",
       },

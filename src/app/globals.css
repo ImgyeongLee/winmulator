@@ -30,4 +30,9 @@ body {
         background: rgb(34,93,218);
         background: linear-gradient(0deg, rgba(34,93,218,1) 73%, rgba(63,138,229,1) 91%);
     }
+
+    .bg-taskbar-setting-gradient {
+        background: rgb(19,144,233);
+        background: linear-gradient(0deg, rgba(19,144,233,1) 73%, rgba(25,180,241,1) 91%);
+    }
 }
