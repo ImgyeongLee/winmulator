@@ -12,7 +12,7 @@ interface IconProps {
 
 const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label} ) => {
     return (
-        <div className="flex flex-col justify-center items-center w-fit">
+        <div className="flex flex-col justify-center items-center w-fit min-w-[50px]">
             <Image
                 width={width}
                 height={height}
@@ -20,7 +20,7 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label} ) 
                 alt={alt}
                 className={`${others} text-center`}
             />
-            <p className={"xp-text-shadow text-[0.7rem]"}>{label}</p>
+            <p className={"xp-text-shadow text-[0.5rem] text-white"}>{label}</p>
         </div>
     )
 }
