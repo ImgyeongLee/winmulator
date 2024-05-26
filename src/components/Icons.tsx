@@ -17,7 +17,7 @@ interface IconProps {
 const defaultOpenPositions: [x: number, y: number] []= [
     [150, 200],
     [200, 250],
-    [200, 400],
+    [550, 100],
     [500, 500]
 ]
 

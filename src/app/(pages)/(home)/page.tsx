@@ -6,6 +6,7 @@ import Icon from '@/components/Icons';
 import { useDispatch } from 'react-redux';
 import { setIconSelection } from '@/redux/iconSelectionSlice';
 import RightClickMenu from '@/components/rightClickMenu';
+import Applications from "@/components/applications";
 
 export default function Home() {
     const listOfIcons: [number, number, string, string, string, string][] = [
@@ -62,6 +63,7 @@ export default function Home() {
                         />
                     ))}
                 </div>
+                <Applications />
             </div>
             <RightClickMenu menuVisible={menuVisible} menuPosition={menuPosition} />
             <Taskbar theme="xp" />
