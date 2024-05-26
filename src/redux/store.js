@@ -2,11 +2,13 @@ import { configureStore } from "@reduxjs/toolkit";
 
 import themeReducer from "./themeSlice"
 import iconSelectionReducer from "./iconSelectionSlice"
+import appReducer from "./appSlice"
 
 export const store = configureStore({
     reducer: {
         theme: themeReducer,
-        iconSelectionReducer: iconSelectionReducer
+        icons: iconSelectionReducer,
+        apps: appReducer
     }
 })
 
