@@ -49,6 +49,8 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
         if (appsState && !appsState[index]) {
             dispatch(addAndOpenApp({
                 id: index,
+                label: label,
+                path: path,
                 x: defaultOpenPositions[index][0],
                 y: defaultOpenPositions[index][1],
                 open: true,

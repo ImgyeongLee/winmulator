@@ -2,6 +2,8 @@ import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface AppState {
     id: number;
+    label: string;
+    path: string;
     x: number;
     y: number;
     open: boolean;
@@ -30,25 +32,25 @@ const appSlice = createSlice({
             }
         },
         removeApp(state, action: PayloadAction<AppState>) {
-            const appId = action.payload
-            delete state[appId]
+            const app = action.payload
+            delete state[app.id]
         },
         toggleMinimizeApp(state, action: PayloadAction<AppState>) {
-            const appId = action.payload;
-            if (state[appId]) {
-                state[appId].minimized = !state[appId].minimized;
+            const app = action.payload;
+            if (state[app.id]) {
+                state[app.id].minimized = !state[app.id].minimized;
             }
         },
         toggleFullSizeApp(state, action: PayloadAction<AppState>) {
-            const appId = action.payload;
-            if (state[appId]) {
-                state[appId].fullSize = !state[appId].fullSize;
+            const app = action.payload;
+            if (state[app.id]) {
+                state[app.id].fullSize = !state[app.id].fullSize;
             }
         },
         toggleOpenApp(state, action: PayloadAction<AppState>) {
-            const appId = action.payload;
-            if (state[appId]) {
-                state[appId].open = !state[appId].open;
+            const app = action.payload;
+            if (state[app.id]) {
+                state[app.id].open = !state[app.id].open;
             }
         }
     },
