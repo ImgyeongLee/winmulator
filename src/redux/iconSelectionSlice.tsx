@@ -9,10 +9,10 @@ const initialState: iconSelectState = {
 };
 
 const iconSelectionSlice = createSlice({
-    name: "iconSelectionReducer",
+    name: "icons",
     initialState,
     reducers: {
-        setIconSelection(state, action: PayloadAction<{id: number}>) {
+        setIconSelection(state, action: PayloadAction<{ id: number }>) {
             state.id = action.payload.id
         }
     },
@@ -24,5 +24,5 @@ const iconSelectionSlice = createSlice({
 })
 
 export default iconSelectionSlice.reducer
-export const { setIconSelection } = iconSelectionSlice.actions
-export const { getSelectedIconId } = iconSelectionSlice.selectors
+export const {setIconSelection} = iconSelectionSlice.actions
+export const {getSelectedIconId} = iconSelectionSlice.selectors

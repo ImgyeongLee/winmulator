@@ -27,8 +27,8 @@ export default function Home() {
             })
         );
 
+        // left click
         if (e.button === 0) {
-            // left click
             e.preventDefault();
             setMenuVisible(false);
         }
@@ -47,8 +47,8 @@ export default function Home() {
 
     return (
         <main className={'bg-xp h-[100vh] bg-cover bg-center min-h-screen flex flex-col'}>
-            <div className="flex-grow">
-                <div className="p-5 flex flex-col gap-8" onClick={handleClick} onContextMenu={handleRightClick}>
+            <div className="flex-grow" onClick={handleClick} onContextMenu={handleRightClick}>
+                <div className="p-5 flex flex-col gap-8">
                     {listOfIcons.map(([width, height, path, alt, others, label], index) => (
                         <Icon
                             key={index}
