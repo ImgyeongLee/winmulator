@@ -9,10 +9,10 @@ import RightClickMenu from "@/components/rightClickMenu";
 
 export default function Home() {
     const listOfIcons: [number, number, string, string, string, string] [] = [
-        [20, 20, '/xp_my_computer.webp', 'windows xp my computer icon', '', 'My Computer'],
-        [20, 20, '/xp_floppy.webp', 'windows xp floppy disk icon', '', 'Floppy Disk'],
-        [20, 20, '/xp_recycle_empty.webp', 'windows xp recycle bin empty icon', '', 'Recycle'],
-        [20, 20, '/xp_word_file.webp', 'windows xp word document file icon', '', 'About.docx'],
+        [35, 35, '/xp_my_computer.webp', 'windows xp my computer icon', '', 'My Computer'],
+        [35, 35, '/xp_floppy.webp', 'windows xp floppy disk icon', '', 'Floppy Disk'],
+        [35, 35, '/xp_recycle_empty.webp', 'windows xp recycle bin empty icon', '', 'Recycle'],
+        [35, 35, '/xp_word_file.webp', 'windows xp word document file icon', '', 'About.docx'],
     ]
 
     const [menuVisible, setMenuVisible] = useState<boolean>(false)

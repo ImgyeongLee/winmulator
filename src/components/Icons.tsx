@@ -47,7 +47,7 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
                 className={`${others} text-center mb-1 ${isSelected ? 'bg-xp-app-select' : ''}`}
             />
             <p
-                className={`xp-text-shadow text-[0.5rem] text-white ${isSelected ? 'bg-xp-app-select' : ''}`}
+                className={`xp-text-shadow text-[0.6rem] text-white ${isSelected ? 'bg-xp-app-select' : ''}`}
             >{label}</p>
         </div>
     )

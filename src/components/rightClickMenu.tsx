@@ -18,7 +18,7 @@ interface menuOptionProps {
 const MenuOption: React.FC<menuOptionProps> = ( {title, submenu, border} ) => {
     return (
         <li
-            className={`text-[0.5rem] hover:bg-xp-app-select pb-[2px] p-1 pl-4  cursor-pointer hover:text-white 
+            className={`text-[0.7rem] hover:bg-xp-app-select pb-[2px] p-1 pl-4  cursor-pointer hover:text-white 
             flex justify-center items-center ${border ? 'border-b border-neutral-500': ''}`}
         >
             <h3 className={"flex-grow"}>{title}</h3>
