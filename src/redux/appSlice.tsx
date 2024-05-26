@@ -19,7 +19,7 @@ const appSlice = createSlice({
     name: "apps",
     initialState,
     reducers: {
-        addApp(state, action: PayloadAction<AppState>) {
+        addAndOpenApp(state, action: PayloadAction<AppState>) {
             const app = action.payload
             state[app.id] = app;
         },
@@ -53,12 +53,12 @@ const appSlice = createSlice({
         }
     },
     selectors: {
-        getSpecificAppState(state, action: PayloadAction<{ id: number }>) {
-            return state[action.payload.id]
+        getAppsState(state) {
+            return state
         }
     }
 })
 
 export default appSlice.reducer
-export const {addApp, updateApp, removeApp, toggleMinimizeApp, toggleOpenApp, toggleFullSizeApp} = appSlice.actions
-export const {getSpecificAppState} = appSlice.selectors
+export const {addAndOpenApp, updateApp, removeApp, toggleMinimizeApp, toggleOpenApp, toggleFullSizeApp} = appSlice.actions
+export const {getAppsState} = appSlice.selectors
