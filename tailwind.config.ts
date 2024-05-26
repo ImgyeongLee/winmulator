@@ -12,6 +12,7 @@ const config: Config = {
                 'xp-taskbar': '#225DDA',
                 'xp-taskbar_setting': '#1390e9',
                 'xp-app-select': "#2951f0",
+                'xp-right-click-menu': "#F5F3F8",
                 'w7-taskbar': '',
                 'w2000-taskbar': '',
             },
@@ -34,6 +35,9 @@ const config: Config = {
             animation: {
                 rainbow: 'rainbow 0.7s linear infinite',
             },
+            rotate: {
+                '90': '90deg'
+            }
         },
     },
     plugins: [],
