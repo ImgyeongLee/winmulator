@@ -1,9 +1,11 @@
 "use client"
 
+import React, {useState} from "react";
 import Taskbar from "@/components/taskbar";
 import Icon from "@/components/Icons";
 import {useDispatch} from "react-redux";
 import {setIconSelection} from "@/redux/iconSelectionSlice";
+import RightClickMenu from "@/components/rightClickMenu";
 
 export default function Home() {
     const listOfIcons: [number, number, string, string, string, string] [] = [
@@ -13,19 +15,40 @@ export default function Home() {
         [20, 20, '/xp_word_file.webp', 'windows xp word document file icon', '', 'About.docx'],
     ]
 
+    const [menuVisible, setMenuVisible] = useState<boolean>(false)
+    const [menuPosition, setMenuPosition] = useState<{x: number, y: number}>({x: 0, y: 0})
+
     const dispatch = useDispatch()
 
-    const handleClick = () => {
-        console.log("clicked")
+    const handleClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         dispatch(setIconSelection({
             id: -1
         }))
+
+        if (e.button === 0) { // left click
+            e.preventDefault()
+            setMenuVisible(false)
+        }
+    }
+
+    // right click
+    const handleRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault()
+
+        setMenuVisible(prev => !prev)
+        setMenuPosition({
+            x: e.clientX,
+            y: e.clientY
+        })
     }
 
     return (
         <main className={"bg-xp h-[100vh] bg-cover bg-center min-h-screen flex flex-col"}>
             <div className="flex-grow">
-                <div className="p-5 flex flex-col gap-8" onClick={handleClick}>
+                <div className="p-5 flex flex-col gap-8"
+                     onClick={handleClick}
+                     onContextMenu={handleRightClick}
+                >
                     {listOfIcons.map(([width, height, path, alt, others, label], index) => (
                         <Icon
                             key={index}
@@ -39,7 +62,9 @@ export default function Home() {
                         />
                     ))}
                 </div>
+
             </div>
+            <RightClickMenu menuVisible={menuVisible} menuPosition={menuPosition} />
             <Taskbar theme="xp"/>
         </main>
     );
