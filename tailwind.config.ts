@@ -11,6 +11,7 @@ const config: Config = {
             colors: {
                 'xp-taskbar': '#225DDA',
                 'xp-taskbar_setting': '#1390e9',
+                'xp-app-select': "#2979F0",
                 'w7-taskbar': '',
                 'w2000-taskbar': '',
             },

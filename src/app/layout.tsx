@@ -11,14 +11,19 @@ export const metadata: Metadata = {
     description: 'Developed by Hla Htun and Imgyeong Lee',
 };
 
+// redux provider
+import StoreProvider from '@/app/StoreProvider';
+
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-            <body className={xp.className}>{children}</body>
-        </html>
+        <StoreProvider>
+            <html lang="en">
+                <body className={xp.className}>{children}</body>
+            </html>
+        </StoreProvider>
     );
 }
