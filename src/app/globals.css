@@ -35,4 +35,8 @@ body {
         background: rgb(19,144,233);
         background: linear-gradient(0deg, rgba(19,144,233,1) 73%, rgba(25,180,241,1) 91%);
     }
+
+    .xp-text-shadow {
+        text-shadow: black 0 1px 1px;
+    }
 }

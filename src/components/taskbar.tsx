@@ -43,7 +43,7 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                     height={400}
                     className={"w-3 h-3 cursor-pointer hover:brightness-110 z-2"}
                 />
-                <h3 className={"ml-2 text-center text-[0.9rem]"}>4:45</h3>
+                <h3 className={"ml-2 text-center text-[0.7rem]"}>4:45</h3>
             </div>
         </div>
     );

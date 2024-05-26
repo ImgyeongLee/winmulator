@@ -1,10 +1,10 @@
 import type {Metadata} from "next";
-import {Inter, VT323} from "next/font/google";
+import {Inter, VT323, Noto_Sans} from "next/font/google";
 import "./globals.css";
 
 const inter = Inter({subsets: ["latin"]});
 
-const xp = VT323({ weight: ['400'], subsets: ["latin"]})
+const xp = Noto_Sans({ weight: ['400'], subsets: ["latin"]})
 
 export const metadata: Metadata = {
     title: "Windows XP, 2000 and 7 emulator",
