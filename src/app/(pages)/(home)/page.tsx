@@ -55,32 +55,18 @@ export default function Home() {
     const RESIZE_MARGIN = 5
     const apps = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
-    const appState = apps[focusedAppId]
+    const appState = focusedAppId != null ? apps[focusedAppId] : undefined
 
     const handleMouseDown = (e: React.MouseEvent) => {
         if (!appState) return
         e.stopPropagation()
-        const { clientX, clientY } = e
-        const { x, y, width, height } = appState
-        const rW = x + width
-        const yH = y + height
 
-        if (colResize.left) {
-            setIsResizing(true)
-        } else if (colResize.right) {
-            setIsResizing(true)
-        } else if (rowResize.top) {
-            setIsResizing(true)
-        } else if (rowResize.bottom) {
-            console.log("holding bottom resize")
+        if (colResize.left || colResize.right || rowResize.bottom || rowResize.top) {
             setIsResizing(true)
         }
     }
 
-    const handleMouseUp = (e: React.MouseEvent) => {
-        // console.log("moving")
-        setColResize(false)
-        setRowResize(false)
+    const handleMouseUp = () => {
         setIsResizing(false)
     }
 
@@ -130,9 +116,7 @@ export default function Home() {
                 }))
             }
             else if (rowResize.bottom) {
-                console.log("rMovingBottom")
                 const offsetY = clientY - (y + height)
-                console.log("calc: ", height + offsetY)
                 dispatch(resizeApp({
                     id: appState.id,
                     height: height + offsetY > 350 ? height + offsetY : height,
