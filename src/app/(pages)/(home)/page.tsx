@@ -70,6 +70,7 @@ export default function Home() {
             setIsResizing(true)
         } else if (colResize.right) {
             console.log("holding right resize")
+            setIsResizing(true)
         } else if (rowResize.top) {
             console.log("holding top resize")
         } else if (rowResize.bottom) {
@@ -94,7 +95,6 @@ export default function Home() {
 
         if (isResizing) {
             if (colResize.left) {
-                // console.log("rMovingLeft")
                 const offsetX = x - clientX
                 // console.log("calc: ", width + offsetX)
                 // console.log("newWidth: ", width + (x-clientX))
@@ -109,6 +109,13 @@ export default function Home() {
                     y: y
                 }))
             } else if (colResize.right) {
+                console.log("rMovingRight")
+                const offsetX = clientX - (x + width)
+                dispatch(resizeApp({
+                    id: appState.id,
+                    width: width + offsetX > 350 ? width + offsetX : width,
+                    height: height
+                }))
             } else if (rowResize.top) {
             } else if (rowResize.bottom) {
             }
