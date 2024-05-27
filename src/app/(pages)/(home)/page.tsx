@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { setIconSelection } from '@/redux/iconSelectionSlice';
 import RightClickMenu from '@/components/rightClickMenu';
 import Applications from "@/components/application/applications";
-import {focusApp, getAppsState, getFocusedAppId} from "@/redux/appSlice";
+import {focusApp, getAppsState, getFocusedAppId, moveApp, resizeApp} from "@/redux/appSlice";
 import {cn} from "@/app/lib/utils";
 
 export default function Home() {
@@ -49,15 +49,15 @@ export default function Home() {
     };
 
     const [isResizing, setIsResizing] = useState<boolean>(false)
-    const [colResize, setColResize] = useState<boolean>(false)
-    const [rowResize, setRowResize] = useState<boolean>(false)
+    const [colResize, setColResize] = useState<{ left: boolean, right: boolean }>({left: false, right: false})
+    const [rowResize, setRowResize] = useState<{ top: boolean, bottom: boolean}>({top: false, bottom: false})
 
     const RESIZE_MARGIN = 5
     const apps = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
     const appState = apps[focusedAppId]
 
-    const handleResize = (e: React.MouseEvent) => {
+    const handleMouseDown = (e: React.MouseEvent) => {
         if (!appState) return
         e.stopPropagation()
         const { clientX, clientY } = e
@@ -65,24 +65,15 @@ export default function Home() {
         const rW = x + width
         const yH = y + height
 
-        // console.log("rw: ", rW, ", cX: ", clientX)
-        // console.log('cal: ', y - clientY)
-        if (Math.abs(rW - clientX) < RESIZE_MARGIN) {
-            // right
-            console.log("right")
+        if (colResize.left) {
+            console.log("holding left resize")
             setIsResizing(true)
-        } else if (Math.abs(x - clientX) < RESIZE_MARGIN) {
-            // left
-            console.log("left")
-            setIsResizing(true)
-        } else if (Math.abs(yH - clientY) < RESIZE_MARGIN) {
-            // bottom
-            console.log("bottom")
-            setIsResizing(true)
-        } else if (Math.abs(y - clientY) < RESIZE_MARGIN) {
-            // top
-            console.log("top")
-            setIsResizing(true)
+        } else if (colResize.right) {
+            console.log("holding right resize")
+        } else if (rowResize.top) {
+            console.log("holding top resize")
+        } else if (rowResize.bottom) {
+            console.log("holding bottom resize")
         }
     }
 
@@ -100,32 +91,54 @@ export default function Home() {
         const { x, y, width, height } = appState
         const rW = x + width
         const yH = y + height
+
+        if (isResizing) {
+            if (colResize.left) {
+                console.log("rMovingLeft")
+                // console.log("calc: ", x - clientX)
+                // console.log("newWidth: ", width + (x-clientX))
+                dispatch(resizeApp({
+                    id: appState.id,
+                    width: width + (x - clientX),
+                    height: height
+                }))
+                dispatch(moveApp({
+                    id: appState.id,
+                    x: x - (x - clientX),
+                    y: y
+                }))
+            } else if (colResize.right) {
+            } else if (rowResize.top) {
+            } else if (rowResize.bottom) {
+            }
+        } else {
+            if (Math.abs(rW - clientX) <= RESIZE_MARGIN) {
+                setColResize({left: false, right: true})
+            } else if (Math.abs(x - clientX) <= RESIZE_MARGIN) {
+                setColResize({left: true, right: false})
+            } else if (Math.abs(yH - clientY) <= RESIZE_MARGIN) {
+                setRowResize({bottom: true, top: false})
+            } else if (Math.abs(y - clientY) <= RESIZE_MARGIN) {
+                setRowResize({bottom: false, top: true})
+            } else {
+                setRowResize({bottom: false, top: false})
+                setColResize({left: false, right: false})
+            }
+        }
         // console.log("rW: ", rW)
         // console.log("calc: ", Math.abs(rW - clientX))
-        if (Math.abs(rW - clientX) <= RESIZE_MARGIN) {
-            setColResize(true)
-        } else if (Math.abs(x - clientX) < RESIZE_MARGIN) {
-            setColResize(true)
-        } else if (Math.abs(yH - clientY) < RESIZE_MARGIN) {
-            setRowResize(true)
-        } else if (Math.abs(y - clientY) < RESIZE_MARGIN) {
-            setRowResize(true)
-        } else {
-            setRowResize(false)
-            setColResize(false)
-        }
     }
 
     return (
         <main className={'bg-xp h-[100vh] bg-cover bg-center min-h-screen flex flex-col'}>
             <div
                 className={cn("flex-grow cursor-default", {
-                    'cursor-col-resize': colResize,
-                    'cursor-row-resize': rowResize
+                    'cursor-col-resize': colResize.right || colResize.left,
+                    'cursor-row-resize': rowResize.top || rowResize.bottom
                 })}
                 onClick={handleClick} onContextMenu={handleRightClick}
                 onMouseMove={handleMouseMove}
-                onMouseDown={handleResize}
+                onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
             >
                 <div className="p-5 flex flex-col gap-8">

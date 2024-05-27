@@ -222,7 +222,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             </button>
                         </div>
                     </div>
-                    <div className={cn("container px-1 flex-grow flex pb-1", {
+                    <div className={cn("container min-w-full px-1 flex-grow flex pb-1", {
                         'min-w-[100vw]': appState.fullSize
                     })}>
                         <div className={"body flex-grow flex flex-col bg-xp-right-click-menu"}>
