@@ -95,6 +95,12 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         setIsMoving(false)
     }
 
+    const handleDoubleClick = () => {
+        dispatch(toggleFullSizeApp({
+            id: appState.id
+        }))
+    }
+
     return (
         <>
             { !appState.minimized &&
@@ -120,6 +126,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             'xp-app-header-gradient': focusedAppId === appState.id
                         })}
                         onMouseDown={handleMouseDown}
+                        onDoubleClick={handleDoubleClick}
                     >
                         <div className={"flex-grow flex items-center gap-2"}>
                             <Image

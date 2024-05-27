@@ -44,8 +44,7 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
         }))
     }
 
-    const handleDoubleClick = (e: React.MouseEvent) => {
-        console.log("double clicked!")
+    const handleDoubleClick = () => {
         if (appsState && !appsState[index]) {
             let position = defaultOpenPositions[index]
             position = adjustPosition(position.x, position.y)
