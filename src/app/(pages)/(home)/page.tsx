@@ -46,9 +46,14 @@ export default function Home() {
         });
     };
 
+    const [isMoving, setIsMoving] = useState<boolean>(false)
+    const handleMouseUp = (isMoving: boolean) => {
+        setIsMoving(isMoving)
+    }
+
     return (
         <main className={'bg-xp h-[100vh] bg-cover bg-center min-h-screen flex flex-col'}>
-            <div className="flex-grow" onClick={handleClick} onContextMenu={handleRightClick}>
+            <div className="flex-grow" onClick={handleClick} onContextMenu={handleRightClick} onMouseUp={() => handleMouseUp(false)}>
                 <div className="p-5 flex flex-col gap-8">
                     {listOfIcons.map(([width, height, path, alt, others, label], index) => (
                         <Icon
@@ -63,7 +68,7 @@ export default function Home() {
                         />
                     ))}
                 </div>
-                <Applications />
+                <Applications isMoving={isMoving} handleMouseUpFromTop={handleMouseUp}/>
             </div>
             <RightClickMenu menuVisible={menuVisible} menuPosition={menuPosition} />
             <Taskbar theme="xp" />

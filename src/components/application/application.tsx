@@ -19,6 +19,8 @@ interface AppState {
 
 interface ApplicationProps {
     appState: AppState;
+    isMoving: boolean;
+    handleMouseUpFromTop: (isMoving: boolean) => void;
 }
 
 interface SubheaderOptionProps {
@@ -31,8 +33,8 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
     )
 }
 
-const Application: React.FC<ApplicationProps> = ( {appState} ) => {
-    const [isMoving, setIsMoving] = useState<boolean>(false)
+const Application: React.FC<ApplicationProps> = ( {appState, isMoving, handleMouseUpFromTop} ) => {
+    // const [isMoving, setIsMoving] = useState<boolean>(false)
     const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
     const [hasLeft, setHasLeft] = useState<boolean>(false)
 
@@ -70,7 +72,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         const offsetX = e.clientX - appState.x
         const offsetY = e.clientY - appState.y
         setDragOffset({x: offsetX, y: offsetY})
-        setIsMoving(true)
+        handleMouseUpFromTop(true)
     }
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -86,9 +88,10 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         }))
     }
 
-    const handleMouseUp = (e: React.MouseEvent) => {
-        setIsMoving(false)
-    }
+    // const handleMouseUp = (e: React.MouseEvent) => {
+    //     // setIsMoving(false)
+    //     handleMouseUpFromTop(false)
+    // }
 
     return (
         <>
@@ -102,7 +105,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                     }}
                     onClick={handleFocus}
                     onMouseMove={handleMouseMove}
-                    onMouseUp={handleMouseUp}
+                    // onMouseUp={() => handleMouseUpFromTop(false)}
                     className={cn("w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default", {
                         'w-full h-full': appState.fullSize
                     })}
