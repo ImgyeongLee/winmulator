@@ -3,7 +3,6 @@ import {getAppsState} from "@/redux/appSlice";
 import Application from "@/components/application/application";
 import React from "react";
 
-
 const Applications = () => {
     const appsState = useSelector(getAppsState)
 

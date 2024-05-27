@@ -4,7 +4,9 @@ import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
+import {number} from "prop-types";
 
+const RESIZE_MARGIN = 10
 
 interface AppState {
     id: number;
@@ -12,6 +14,8 @@ interface AppState {
     path: string;
     x: number;
     y: number;
+    width: number;
+    height: number;
     open: boolean;
     minimized: boolean;
     fullSize: boolean;
@@ -34,7 +38,9 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
 const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     const [isMoving, setIsMoving] = useState<boolean>(false)
     const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
-    const [hasLeft, setHasLeft] = useState<boolean>(false)
+    const [isResizing, setIsResizing] = useState<boolean>(false)
+    const [resizeDirection, setResizeDirection] = useState<string>('')
+    const [resizeStart, setResizeStart] = useState<{width: number, height: number}>({ width: 0, height: 0})
 
     const selectedAppId = useSelector(getFocusedAppId)
     const dispatch = useDispatch()
@@ -66,28 +72,75 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     }
 
     const handleMouseDown = (e: React.MouseEvent) => {
-        e.stopPropagation()
-        const offsetX = e.clientX - appState.x
-        const offsetY = e.clientY - appState.y
-        setDragOffset({x: offsetX, y: offsetY})
-        setIsMoving(true)
+        // e.stopPropagation()
+        // console.log(e.clientX - appState.x < 5)
+        // if (resizeDirection) {
+        //     setResizeStart({
+        //         width: e.clientX - appState.x,
+        //         height: e.clientY - appState.y
+        //     })
+        //     setIsResizing(true)
+        // } else {
+            const offsetX = e.clientX - appState.x
+            const offsetY = e.clientY - appState.y
+            setDragOffset({x: offsetX, y: offsetY})
+            setIsMoving(true)
+        // }
     }
 
-    const handleMouseMove = (e: React.MouseEvent) => {
-        if (!isMoving) return
-        e.stopPropagation()
-        const newX = e.clientX - dragOffset.x
-        const newY = e.clientY - dragOffset.y
+    // const handleResize = (e: React.MouseEvent) => {
+    //     e.stopPropagation()
+    //     const resizeQ = e.clientX - appState.x < RESIZE_MARGIN
+    //     console.log(resizeQ)
+    //     if (resizeQ) {
+    //         console.log("resizing")
+    //         const newWidth = e.clientX - resizeStart.width
+    //         const newHeight = e.clientY - resizeStart.height
+    //         // dispatch(moveApp({
+    //         //     id: appState.id,
+    //         //     width: newWidth,
+    //         //     height: newHeight
+    //         // }))
+    //         console.log("nW: ", newWidth)
+    //         console.log("nH: ", newHeight)
+    //     }
+    //     else {
+    //         const { clientX, clientY } = e
+    //         const { x, y, width, height } = appState
+    //         let direction = ''
+    //
+    //         if (clientX >= x + width - RESIZE_MARGIN) {
+    //             direction = 'right';
+    //         } else if (clientX <= x + RESIZE_MARGIN) {
+    //             direction = 'left';
+    //         } else if (clientY >= y + height - RESIZE_MARGIN) {
+    //             direction = 'bottom';
+    //         } else if (clientY <= y + RESIZE_MARGIN) {
+    //             direction = 'top';
+    //         }
+    //         console.log("direction: ", direction)
+    //         setResizeDirection(direction);
+    //     }
+    // }
 
-        dispatch(moveApp({
-            id: appState.id,
-            x: newX,
-            y: newY
-        }))
+    const handleMouseMove = (e: React.MouseEvent) => {
+        // e.stopPropagation()
+        if (isMoving) {
+            console.log("moving")
+            const newX = e.clientX - dragOffset.x
+            const newY = e.clientY - dragOffset.y
+
+            dispatch(moveApp({
+                id: appState.id,
+                x: newX,
+                y: newY
+            }))
+        }
     }
 
     const handleMouseUp = (e: React.MouseEvent) => {
         setIsMoving(false)
+        setIsResizing(false)
     }
 
     return (
@@ -98,17 +151,20 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         position: "absolute",
                         top: appState.fullSize ? 0 : appState.y,
                         left: appState.fullSize ? 0 : appState.x,
+                        width: appState.fullSize ? '100%' : appState.width,
+                        height: appState.fullSize ? '100%' : appState.height,
                         zIndex: selectedAppId === appState.id ? 100 : 10,
                     }}
                     onClick={handleFocus}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
-                    className={cn("w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default", {
-                        'w-full h-full': appState.fullSize
-                    })}
+                    // onMouseDown={handleResize}
+                    className={cn("cursor-inherit mb-10 bg-xp-taskbar rounded-[3px] flex flex-col select-none", {})}
                 >
                     <div
-                        className={"header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}
+                        className={cn("header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]", {
+                            'cursor-move': isMoving,
+                        })}
                         onMouseDown={handleMouseDown}
                     >
                         <div className={"flex-grow flex items-center gap-2"}>

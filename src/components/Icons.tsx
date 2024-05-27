@@ -56,6 +56,8 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
                 path: path,
                 x: position.x,
                 y: position.y,
+                width: 500,
+                height: 400,
                 open: true,
                 minimized: false,
                 fullSize: false

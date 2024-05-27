@@ -1,4 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {number} from "prop-types";
 
 interface AppState {
     id: number;
@@ -6,6 +7,8 @@ interface AppState {
     path: string;
     x: number;
     y: number;
+    width: number;
+    height: number;
     open: boolean;
     minimized: boolean;
     fullSize: boolean;
@@ -41,6 +44,11 @@ const appSlice = createSlice({
             state.apps[id].x = x
             state.apps[id].y = y
         },
+        resizeApp(state, action: PayloadAction<{ id: number, width: number, height: number }>) {
+            const {id, width, height} = action.payload
+            state.apps[id].width = width
+            state.apps[id].height = height
+        },
         toggleMinimizeApp(state, action: PayloadAction<{ id: number}>) {
             const appId = action.payload.id
             if (state.apps[appId]) {
@@ -71,5 +79,5 @@ const appSlice = createSlice({
 })
 
 export default appSlice.reducer
-export const {addAndOpenApp, removeApp, moveApp, toggleMinimizeApp, toggleFullSizeApp, focusApp} = appSlice.actions
+export const {addAndOpenApp, removeApp, moveApp, resizeApp, toggleMinimizeApp, toggleFullSizeApp, focusApp} = appSlice.actions
 export const {getAppsState, getFocusedAppId} = appSlice.selectors
