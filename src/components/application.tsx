@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
-import {focusApp, getFocusedAppId} from "@/redux/appSlice";
+import {focusApp, getFocusedAppId, removeApp} from "@/redux/appSlice";
 
 interface AppState {
     id: number;
@@ -40,6 +40,20 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         }))
     }
 
+    const handleAppClose = () => {
+        dispatch(removeApp({
+            id: appState.id
+        }))
+    }
+
+    const handleAppMaximize = () => {
+
+    }
+
+    const handleAppMinimize = () => {
+
+    }
+
     return (
         <div
             style={{
@@ -65,7 +79,10 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                     <div className={"controls flex flex-row gap-[1.5px] rounded-[2px]"}>
                         <button
                             className={"border border-neutral-200 rounded-[2px] xp-app-controls-gradient min-w-[20px] hover:brightness-110"}>
-                            <div className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}>
+                            <div
+                                className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
+                                onClick={handleAppMinimize}
+                            >
                                 <svg className={"mt-3"} width="12" height="5" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="12" height="5" fill="#D9D9D9"/>
                                 </svg>
@@ -74,7 +91,10 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         <button
                             className={"border border-neutral-200 rounded-[2px] min-w-[20px] xp-app-controls-gradient hover:brightness-110"}
                         >
-                            <div className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}>
+                            <div
+                                className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
+                                onClick={handleAppMaximize}
+                            >
                                 <svg width="13" height="15" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <rect width="23" height="5" fill="#D9D9D9"/>
                                     <rect y="4" width="2" height="17" fill="#D9D9D9"/>
@@ -86,7 +106,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         <button
                             className={"border border-neutral-200 rounded-[2px] min-w-[20px] w-[20px] hover:brightness-110"}
                         >
-                            <div className={"relative w-full h-full"}>
+                            <div className={"relative w-full h-full"} onClick={handleAppClose}>
                                 <Image
                                     src={'/xp_app_close.webp'}
                                     alt={"close app icon"}

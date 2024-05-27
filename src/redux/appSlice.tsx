@@ -35,10 +35,10 @@ const appSlice = createSlice({
                 state.apps[app.id] = app
             }
         },
-        removeApp(state, action: PayloadAction<AppState>) {
-            const app = action.payload
-            delete state.apps[app.id]
-            if (state.focusedAppId === app.id) {
+        removeApp(state, action: PayloadAction<{ id: number }>) {
+            const appId = action.payload.id
+            delete state.apps[appId]
+            if (state.focusedAppId === appId) {
                 state.focusedAppId = null
             }
         },
