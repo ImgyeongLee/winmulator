@@ -81,8 +81,6 @@ export default function Home() {
         if (isResizing) {
             if (colResize.left) {
                 const offsetX = x - clientX
-                // console.log("calc: ", width + offsetX)
-                // console.log("newWidth: ", width + (x-clientX))
                 dispatch(resizeApp({
                     id: appState.id,
                     width: width + offsetX > 350 ? width + offsetX : width,
@@ -138,8 +136,6 @@ export default function Home() {
                 setColResize({left: false, right: false})
             }
         }
-        // console.log("rW: ", rW)
-        // console.log("calc: ", Math.abs(rW - clientX))
     }
 
     return (

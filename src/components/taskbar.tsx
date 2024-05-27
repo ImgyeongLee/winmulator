@@ -66,9 +66,9 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
             <Image
                 src="/windowsXP_taskbar_start.webp"
                 alt="windowsXP taskbar"
-                width={200}
-                height={400}
-                className="h-[30px] w-[80px] p-0 m-0 cursor-pointer hover:brightness-110 z-10"
+                width={120}
+                height={100}
+                className="p-0 m-0 cursor-pointer hover:brightness-110 z-10"
             />
             <div
                 className={"bg-taskbar-gradient z-1 w-full h-[30px] ml-[-4px] z-1 " +

@@ -38,11 +38,8 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
 const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     const [isMoving, setIsMoving] = useState<boolean>(false)
     const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
-    const [isResizing, setIsResizing] = useState<boolean>(false)
-    const [resizeDirection, setResizeDirection] = useState<string>('')
-    const [resizeStart, setResizeStart] = useState<{width: number, height: number}>({ width: 0, height: 0})
 
-    const selectedAppId = useSelector(getFocusedAppId)
+    const focusedAppId = useSelector(getFocusedAppId)
     const dispatch = useDispatch()
 
     const handleFocus = (e: React.MouseEvent) => {
@@ -82,9 +79,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     }
 
     const handleMouseMove = (e: React.MouseEvent) => {
-        // e.stopPropagation()
         if (isMoving) {
-            console.log("moving")
             const newX = e.clientX - dragOffset.x
             const newY = e.clientY - dragOffset.y
 
@@ -96,9 +91,8 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         }
     }
 
-    const handleMouseUp = (e: React.MouseEvent) => {
+    const handleMouseUp = () => {
         setIsMoving(false)
-        setIsResizing(false)
     }
 
     return (
@@ -111,17 +105,19 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         left: appState.fullSize ? 0 : appState.x,
                         width: appState.fullSize ? '100%' : appState.width,
                         height: appState.fullSize ? '100%' : appState.height,
-                        zIndex: selectedAppId === appState.id ? 100 : 10,
+                        zIndex: focusedAppId === appState.id ? 100 : 10,
                     }}
                     onClick={handleFocus}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
-                    // onMouseDown={handleResize}
-                    className={cn("cursor-inherit mb-10 bg-xp-taskbar rounded-[3px] flex flex-col select-none", {})}
+                    className={cn("cursor-inherit mb-10 bg-xp-taskbar-unselected rounded-[3px] flex flex-col select-none", {
+                        'bg-xp-taskbar': focusedAppId === appState.id
+                    })}
                 >
                     <div
-                        className={cn("header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]", {
+                        className={cn("header flex text-white flex-row items-center px-2 py-1 rounded-t-[3px]", {
                             'cursor-move': isMoving,
+                            'xp-app-header-gradient': focusedAppId === appState.id
                         })}
                         onMouseDown={handleMouseDown}
                     >
