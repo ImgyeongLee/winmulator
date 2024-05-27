@@ -94,17 +94,18 @@ export default function Home() {
 
         if (isResizing) {
             if (colResize.left) {
-                console.log("rMovingLeft")
-                // console.log("calc: ", x - clientX)
+                // console.log("rMovingLeft")
+                const offsetX = x - clientX
+                // console.log("calc: ", width + offsetX)
                 // console.log("newWidth: ", width + (x-clientX))
                 dispatch(resizeApp({
                     id: appState.id,
-                    width: width + (x - clientX),
+                    width: width + offsetX > 350 ? width + offsetX : width,
                     height: height
                 }))
                 dispatch(moveApp({
                     id: appState.id,
-                    x: x - (x - clientX),
+                    x: x - offsetX,
                     y: y
                 }))
             } else if (colResize.right) {
