@@ -3,11 +3,25 @@
 import { Lora, Pixelify_Sans } from 'next/font/google';
 import { cn } from '../lib/utils';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useRef, ChangeEvent } from 'react';
 const lora = Lora({ subsets: ['latin'] });
 const pixelify_sans = Pixelify_Sans({ subsets: ['latin'] });
 
 export function FileUploadModal({ onClick }: { onClick: () => void }) {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            alert(`Selected file: ${file.name}`);
+        }
+    };
     return (
         <article className="bg-white border-4 border-[#9C0000] flex flex-col justify-center items-center p-2 w-[40%] min-w-[200px]">
             <div>Our Policy</div>
@@ -20,9 +34,12 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
                 </div>
             </section>
             <div className="space-x-2">
-                <button className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]">
+                <button
+                    className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
+                    onClick={handleButtonClick}>
                     Browse the files
                 </button>
+                <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                 <button
                     className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
                     onClick={onClick}>
@@ -106,6 +123,20 @@ export function FloppyDiskProgramWin2000WinXP() {
 }
 
 export function FloppyDiskProgramWin7() {
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            alert(`Selected file: ${file.name}`);
+        }
+    };
     const [isFileToggle, setIsFileToggle] = useState<boolean>(false);
     const [isBoardToggle, setIsBoardToggle] = useState<boolean>(false);
     const [title, setTitle] = useState<string>('Home');
@@ -167,6 +198,22 @@ export function FloppyLeaderBoardWin7() {
 }
 
 export function FloppyUploadWin7() {
+    const [fileSize, setFileSize] = useState<number>(0);
+    const fileInputRef = useRef<HTMLInputElement>(null);
+
+    const handleButtonClick = () => {
+        if (fileInputRef.current) {
+            fileInputRef.current.click();
+        }
+    };
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+            setFileSize(file.size);
+        }
+    };
+
     return (
         <div className="flex flex-col mt-3 gap-3">
             <div className="md:col-span-2 bg-[#EAEAEA] p-4">
@@ -185,8 +232,15 @@ export function FloppyUploadWin7() {
                 </div>
 
                 <div className="space-x-2">
-                    <button className="win7-button">Browse the files</button>
+                    <div>
+                        <button className="win7-button" onClick={handleButtonClick}>
+                            Browse the files
+                        </button>
+                    </div>
+                    <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                 </div>
+
+                {fileSize && <div className="">Your file size is {fileSize} bytes.</div>}
             </div>
         </div>
     );
