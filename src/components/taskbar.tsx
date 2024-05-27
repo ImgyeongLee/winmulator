@@ -11,12 +11,23 @@ interface TaskbarProps {
     theme: string;
 }
 
+interface AppState {
+    id: number;
+    label: string;
+    path: string;
+    x: number;
+    y: number;
+    open: boolean;
+    minimized: boolean;
+    fullSize: boolean;
+}
+
 const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     const [isMute, setIsMute] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
 
     const dispatch = useDispatch()
-    const apps = useSelector(getAppsState)
+    const apps: { [key: string]: AppState} = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
 
     useEffect(() => {
@@ -37,7 +48,7 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     const handleToggleApp = (id: string) => {
         if (apps[id].minimized) {
             dispatch(toggleMinimizeApp({
-                id: id
+                id: Number(id)
             }))
         }
         dispatch(focusApp({
