@@ -66,16 +66,14 @@ export default function Home() {
         const yH = y + height
 
         if (colResize.left) {
-            console.log("holding left resize")
             setIsResizing(true)
         } else if (colResize.right) {
-            console.log("holding right resize")
             setIsResizing(true)
         } else if (rowResize.top) {
-            console.log("holding top resize")
             setIsResizing(true)
         } else if (rowResize.bottom) {
             console.log("holding bottom resize")
+            setIsResizing(true)
         }
     }
 
@@ -119,9 +117,7 @@ export default function Home() {
                 }))
             }
             else if (rowResize.top) {
-                console.log("rMovingTop")
                 const offsetY = y - clientY
-                console.log("calc: ", height + offsetY)
                 dispatch(resizeApp({
                     id: appState.id,
                     height: height + offsetY > 350 ? height + offsetY : height,
@@ -135,6 +131,13 @@ export default function Home() {
             }
             else if (rowResize.bottom) {
                 console.log("rMovingBottom")
+                const offsetY = clientY - (y + height)
+                console.log("calc: ", height + offsetY)
+                dispatch(resizeApp({
+                    id: appState.id,
+                    height: height + offsetY > 350 ? height + offsetY : height,
+                    width: width
+                }))
             }
         }
         else {
