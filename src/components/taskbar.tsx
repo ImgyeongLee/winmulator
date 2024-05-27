@@ -1,8 +1,11 @@
 "use client"
 
 import React, {useEffect, useState} from "react";
+import { cn } from "@/app/lib/utils"
 
 import Image from "next/image"
+import {useSelector} from "react-redux";
+import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
 
 interface TaskbarProps {
     theme: string;
@@ -11,6 +14,13 @@ interface TaskbarProps {
 const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     const [isMute, setIsMute] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
+
+    const apps = useSelector(getAppsState)
+    useEffect(() => {
+        console.log("in taskbar: ", apps)
+    }, [apps])
+
+    const focusedAppId = useSelector(getFocusedAppId)
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -39,9 +49,32 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                 className="h-[30px] w-[80px] p-0 m-0 cursor-pointer hover:brightness-110 z-10"
             />
             <div
-                className={"bg-taskbar-gradient z-1 w-full h-[30px] text-xp-taskbar ml-[-4px] z-1 " +
-                    "border border-xp-taskbar"}
-            >.</div>
+                className={"bg-taskbar-gradient z-1 w-full h-[30px] ml-[-4px] z-1 " +
+                    "border border-xp-taskbar "}
+            >
+                <div className={"mt-[3px] flex ml-2 gap-[1.7px] mt-[5px]"}>
+                    {Object.keys(apps).map((id, index) => {
+                        return (
+                            <div
+                                key={index}
+                                className={cn(`pl-2 flex items-center gap-2 bg-xp-taskbar-unselected w-[170px] h-[21px] xp-taskbar-apps-unselected text-[0.8rem]`, {
+                                    'bg-xp-taskbar-selected': apps[id].id === focusedAppId,
+                                    'xp-taskbar-apps-selected': apps[id].id === focusedAppId
+                                })}
+                            >
+                                <Image
+                                    src={apps[id].path}
+                                    alt="windowsXP taskbar"
+                                    width={20}
+                                    height={18}
+                                    className=""
+                                />
+                                <h3>{apps[id].label}</h3>
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
             <div className={"bg-taskbar-setting-gradient h-[30px] w-[150px] border border-xp-taskbar_setting " +
                 "flex flex-wrap justify-start items-center"}>
                 <Image

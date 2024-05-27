@@ -10,6 +10,8 @@ const config: Config = {
         extend: {
             colors: {
                 'xp-taskbar': '#225DDA',
+                'xp-taskbar-unselected': '#3B81F2',
+                'xp-taskbar-selected': '#1F52B7',
                 'xp-taskbar-300': '#AEB0FF',
                 'xp-taskbar_setting': '#1390e9',
                 'xp-app-select': "#2951f0",

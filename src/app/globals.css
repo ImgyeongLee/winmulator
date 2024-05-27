@@ -32,6 +32,14 @@
         @apply border-b border-b-gray-400
     }
 
+    .xp-taskbar-apps-unselected {
+        box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset, rgba(255, 255, 255, 0.2) 1px 1px 1px inset;
+    }
+
+    .xp-taskbar-apps-selected {
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+    }
+
 }
 
 :root,
