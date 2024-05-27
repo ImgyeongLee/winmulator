@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
 import {getSelectedIconId, setIconSelection} from "@/redux/iconSelectionSlice";
-import {addAndOpenApp, getAppsState} from "@/redux/appSlice";
+import {addAndOpenApp, focusApp, getAppsState} from "@/redux/appSlice";
 
 interface IconProps {
     width: number;
@@ -14,11 +14,11 @@ interface IconProps {
     index: number;
 }
 
-const defaultOpenPositions: [x: number, y: number] []= [
-    [150, 200],
-    [200, 250],
-    [550, 100],
-    [500, 500]
+const defaultOpenPositions: { x: number, y: number } []= [
+    { x: 150, y: 200},
+    { x: 200, y: 250},
+    { x: 550, y: 100},
+    { x: 500, y: 400}
 ]
 
 const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, index} ) => {
@@ -47,12 +47,15 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
     const handleDoubleClick = (e: React.MouseEvent) => {
         console.log("double clicked!")
         if (appsState && !appsState[index]) {
+            let position = defaultOpenPositions[index]
+            position = adjustPosition(position.x, position.y)
+
             dispatch(addAndOpenApp({
                 id: index,
                 label: label,
                 path: path,
-                x: defaultOpenPositions[index][0],
-                y: defaultOpenPositions[index][1],
+                x: position.x,
+                y: position.y,
                 open: true,
                 minimized: false,
                 fullSize: false
@@ -60,6 +63,9 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
         } else {
             console.log("exists")
         }
+        dispatch(focusApp({
+            id: index
+        }))
     }
 
     return (
@@ -82,3 +88,13 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
 }
 
 export default Icon
+
+const adjustPosition = (x: number, y: number) => {
+    const adjustedX = x > window.innerWidth - 500 ? window.innerWidth - 500 : x;
+    const adjustedY = y > window.innerHeight - 400 ? window.innerHeight - 400 : y;
+    console.log("iwidth: ", window.innerWidth)
+    console.log("iheight: ", window.innerHeight)
+    console.log("x: ", x)
+    console.log("y: ", y)
+    return { x: adjustedX, y: adjustedY };
+};
