@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import {IoTriangleSharp} from "react-icons/io5";
 
 interface AppState {
     id: number;
@@ -73,9 +74,14 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         >
                             <div className={"relative w-full h-full"}>
                                 <Image
-                                    src={'/xp_app_close.webp'} alt={"close app icon"}
-                                    layout="fill"
-                                    objectFit="cover"
+                                    src={'/xp_app_close.webp'}
+                                    alt={"close app icon"}
+                                    width={30}
+                                    height={30}
+                                    style={{
+                                        objectFit: 'cover',
+                                        layout: 'fill'
+                                    }}
                                     className="rounded-[2px]"
                                 />
                             </div>
@@ -92,8 +98,61 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         <SubheaderOption name={"Tools"} />
                         <SubheaderOption name={"Help"} />
                     </div>
-                    <div className={"controls px-2 flex flex-row xp-app-bb-divider text-[0.8rem]"}>
-                        Several icons
+                    <div className={"controls px-1 py-1 flex flex-row xp-app-bb-divider text-[0.8rem] "}>
+                        <div className={"opacity-50 flex items-center cursor-not-allowed"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_back.webp"}
+                                alt={"back arrow button"}
+                            />
+                            <h3 className={"text-[0.6rem]"}>Back</h3>
+                            <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
+                        </div>
+                        <div className={"ml-2 opacity-50 flex items-center cursor-not-allowed"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_forward.webp"}
+                                alt={"back arrow button"}
+                            />
+                            <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
+                        </div>
+                        <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_folder_green_arrow.webp"}
+                                alt={"back arrow button"}
+                            />
+                        </div>
+                        <div className={"ml-2 flex items-center hover:brightness-105"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_search.webp"}
+                                alt={"back arrow button"}
+                            />
+                            <h3>Search</h3>
+                        </div>
+                        <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_folders_open_empty.webp"}
+                                alt={"back arrow button"}
+                            />
+                            <h3 className={"ml-2"}>Folders</h3>
+                        </div>
+                        <div className={"ml-2 pr-2 flex items-center hover:brightness-105"}>
+                            <Image
+                                width={25}
+                                height={25}
+                                src={"/xp_change_folder_view.webp"}
+                                alt={"back arrow button"}
+                            />
+                            <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
+                        </div>
                     </div>
                     <div className={"currentPath px-2 flex text-[0.8rem]"}>
                         <h3>Address</h3>

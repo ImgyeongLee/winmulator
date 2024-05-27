@@ -36,7 +36,11 @@ const config: Config = {
                 rainbow: 'rainbow 0.7s linear infinite',
             },
             rotate: {
-                '90': '90deg'
+                '90': '90deg',
+                '180': '180deg'
+            },
+            filter: {
+                'black-tint': 'brightness(0) invert(1)'
             }
         },
     },
