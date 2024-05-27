@@ -48,10 +48,10 @@ const appSlice = createSlice({
                 state.apps[appId].minimized = !state.apps[appId].minimized;
             }
         },
-        toggleFullSizeApp(state, action: PayloadAction<AppState>) {
-            const app = action.payload;
-            if (state.apps[app.id]) {
-                state.apps[app.id].fullSize = !state.apps[app.id].fullSize;
+        toggleFullSizeApp(state, action: PayloadAction<{ id: number }>) {
+            const appId = action.payload.id
+            if (state.apps[appId]) {
+                state.apps[appId].fullSize = !state.apps[appId].fullSize;
             }
         },
         toggleOpenApp(state, action: PayloadAction<AppState>) {

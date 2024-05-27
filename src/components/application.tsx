@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
+import { cn } from "@/app/lib/utils"
 import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
-import {focusApp, getFocusedAppId, removeApp, toggleMinimizeApp} from "@/redux/appSlice";
+import {focusApp, getFocusedAppId, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
 
 interface AppState {
     id: number;
@@ -47,7 +48,9 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     }
 
     const handleAppMaximize = () => {
-
+        dispatch(toggleFullSizeApp({
+            id: appState.id
+        }))
     }
 
     const handleAppMinimize = () => {
@@ -62,70 +65,74 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                 <div
                     style={{
                         position: "absolute",
-                        top: appState.y,
-                        left: appState.x,
+                        top: appState.fullSize ? 0 : appState.y,
+                        left: appState.fullSize ? 0 : appState.x,
                         zIndex: selectedAppId === appState.id ? 100 : 10
                     }}
                     onClick={handleFocus}
-                    className={"w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default"}
+                    className={cn("w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default", {
+                        'w-full h-full': appState.fullSize
+                    })}
                 >
-                    <div className={"header w-full bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}>
-                            <div className={"flex-grow flex items-center gap-2"}>
-                                <Image
-                                    width={15}
-                                    height={10}
-                                    src={appState.path}
-                                    alt={appState.label + " icon"}
-                                    className={"h-4"}
-                                />
-                                <h1 className={"xp-text-shadow text-[0.9rem]"}>{appState.label}</h1>
-                            </div>
-                            <div className={"controls flex flex-row gap-[1.5px] rounded-[2px]"}>
-                                <button
-                                    className={"border border-neutral-200 rounded-[2px] xp-app-controls-gradient min-w-[20px] hover:brightness-110"}>
-                                    <div
-                                        className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
-                                        onClick={handleAppMinimize}
-                                    >
-                                        <svg className={"mt-3"} width="12" height="5" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="12" height="5" fill="#D9D9D9"/>
-                                        </svg>
-                                    </div>
-                                </button>
-                                <button
-                                    className={"border border-neutral-200 rounded-[2px] min-w-[20px] xp-app-controls-gradient hover:brightness-110"}
-                                >
-                                    <div
-                                        className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
-                                        onClick={handleAppMaximize}
-                                    >
-                                        <svg width="13" height="15" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="23" height="5" fill="#D9D9D9"/>
-                                            <rect y="4" width="2" height="17" fill="#D9D9D9"/>
-                                            <rect x="21" y="4" width="2" height="17" fill="#D9D9D9"/>
-                                            <rect y="21" width="23" height="2" fill="#D9D9D9"/>
-                                        </svg>
-                                    </div>
-                                </button>
-                                <button
-                                    className={"border border-neutral-200 rounded-[2px] min-w-[20px] w-[20px] hover:brightness-110"}
-                                >
-                                    <div className={"relative w-full h-full"} onClick={handleAppClose}>
-                                        <Image
-                                            src={'/xp_app_close.webp'}
-                                            alt={"close app icon"}
-                                            width={30}
-                                            height={30}
-                                            style={{
-                                                objectFit: 'cover',
-                                            }}
-                                            className="rounded-[2px]"
-                                        />
-                                    </div>
-                                </button>
-                            </div>
+                    <div className={"header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}>
+                        <div className={"flex-grow flex items-center gap-2"}>
+                            <Image
+                                width={15}
+                                height={10}
+                                src={appState.path}
+                                alt={appState.label + " icon"}
+                                className={"h-4"}
+                            />
+                            <h1 className={"xp-text-shadow text-[0.9rem]"}>{appState.label}</h1>
                         </div>
-                    <div className={"container px-1 flex-grow flex pb-1"}>
+                        <div className={"controls flex flex-row gap-[1.5px] rounded-[2px]"}>
+                            <button
+                                className={"border border-neutral-200 rounded-[2px] xp-app-controls-gradient min-w-[20px] hover:brightness-110"}>
+                                <div
+                                    className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
+                                    onClick={handleAppMinimize}
+                                >
+                                    <svg className={"mt-3"} width="12" height="5" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="12" height="5" fill="#D9D9D9"/>
+                                    </svg>
+                                </div>
+                            </button>
+                            <button
+                                className={"border border-neutral-200 rounded-[2px] min-w-[20px] xp-app-controls-gradient hover:brightness-110"}
+                            >
+                                <div
+                                    className={"border-[0.5px] border-gray-500 rounded-[2px] w-full h-full flex justify-center items-center"}
+                                    onClick={handleAppMaximize}
+                                >
+                                    <svg width="13" height="15" viewBox="0 0 23 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="23" height="5" fill="#D9D9D9"/>
+                                        <rect y="4" width="2" height="17" fill="#D9D9D9"/>
+                                        <rect x="21" y="4" width="2" height="17" fill="#D9D9D9"/>
+                                        <rect y="21" width="23" height="2" fill="#D9D9D9"/>
+                                    </svg>
+                                </div>
+                            </button>
+                            <button
+                                className={"border border-neutral-200 rounded-[2px] min-w-[20px] w-[20px] hover:brightness-110"}
+                            >
+                                <div className={"relative w-full h-full"} onClick={handleAppClose}>
+                                    <Image
+                                        src={'/xp_app_close.webp'}
+                                        alt={"close app icon"}
+                                        width={30}
+                                        height={30}
+                                        style={{
+                                            objectFit: 'cover',
+                                        }}
+                                        className="rounded-[2px]"
+                                    />
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                    <div className={cn("container px-1 flex-grow flex pb-1", {
+                        'min-w-[100vw]': appState.fullSize
+                    })}>
                         <div className={"body flex-grow flex flex-col bg-xp-right-click-menu"}>
                             <div className={"subheader px-1 flex gap-1 xp-app-bb-divider text-[0.8rem]"}>
                                 <SubheaderOption name={"File"} />
@@ -227,7 +234,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"content px-2"}>Main content of the app</div>
+                            <div className={"content px-2 flex-grow"}>Main content of the app</div>
                         </div>
                     </div>
                 </div>

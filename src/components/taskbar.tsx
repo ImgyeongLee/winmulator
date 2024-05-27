@@ -39,6 +39,9 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
 
     return (
         <div
+            style={{
+                zIndex: 1000
+            }}
             className={`text-center text-white flex flex-row justify-between items-center`}
         >
             <Image
