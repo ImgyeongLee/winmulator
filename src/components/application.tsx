@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
+import {useDispatch, useSelector} from "react-redux";
+import {focusApp, getFocusedAppId} from "@/redux/appSlice";
 
 interface AppState {
     id: number;
@@ -28,13 +30,25 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
 }
 
 const Application: React.FC<ApplicationProps> = ( {appState} ) => {
+    const selectedAppId = useSelector(getFocusedAppId)
+
+    const dispatch = useDispatch()
+    const handleFocus = (e: React.MouseEvent) => {
+        e.preventDefault()
+        dispatch(focusApp({
+            id: appState.id
+        }))
+    }
+
     return (
         <div
             style={{
                 position: "absolute",
                 top: appState.y,
                 left: appState.x,
+                zIndex: selectedAppId === appState.id ? 100 : 10
             }}
+            onClick={handleFocus}
             className={"w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default"}
         >
             <div className={"header w-full bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}>

@@ -12,10 +12,14 @@ interface AppState {
 }
 
 interface AppsState {
-    [id: number]: AppState
+    apps: { [id: number]: AppState },
+    focusedAppId: number | null
 }
 
-const initialState: AppsState = {}
+const initialState: AppsState = {
+    apps: {},
+    focusedAppId: null
+}
 
 const appSlice = createSlice({
     name: "apps",
@@ -23,44 +27,53 @@ const appSlice = createSlice({
     reducers: {
         addAndOpenApp(state, action: PayloadAction<AppState>) {
             const app = action.payload
-            state[app.id] = app;
+            state.apps[app.id] = app;
         },
         updateApp(state, action: PayloadAction<AppState>) {
             const app = action.payload
-            if (state[app.id]) {
-                state[app.id] = app
+            if (state.apps[app.id]) {
+                state.apps[app.id] = app
             }
         },
         removeApp(state, action: PayloadAction<AppState>) {
             const app = action.payload
-            delete state[app.id]
+            delete state.apps[app.id]
+            if (state.focusedAppId === app.id) {
+                state.focusedAppId = null
+            }
         },
         toggleMinimizeApp(state, action: PayloadAction<AppState>) {
             const app = action.payload;
-            if (state[app.id]) {
-                state[app.id].minimized = !state[app.id].minimized;
+            if (state.apps[app.id]) {
+                state.apps[app.id].minimized = !state.apps[app.id].minimized;
             }
         },
         toggleFullSizeApp(state, action: PayloadAction<AppState>) {
             const app = action.payload;
-            if (state[app.id]) {
-                state[app.id].fullSize = !state[app.id].fullSize;
+            if (state.apps[app.id]) {
+                state.apps[app.id].fullSize = !state.apps[app.id].fullSize;
             }
         },
         toggleOpenApp(state, action: PayloadAction<AppState>) {
             const app = action.payload;
-            if (state[app.id]) {
-                state[app.id].open = !state[app.id].open;
+            if (state.apps[app.id]) {
+                state.apps[app.id].open = !state.apps[app.id].open;
             }
+        },
+        focusApp(state, action: PayloadAction<{ id: number }>) {
+            state.focusedAppId = action.payload.id
         }
     },
     selectors: {
         getAppsState(state) {
-            return state
+            return state.apps
+        },
+        getFocusedAppId(state) {
+            return state.focusedAppId
         }
     }
 })
 
 export default appSlice.reducer
-export const {addAndOpenApp, updateApp, removeApp, toggleMinimizeApp, toggleOpenApp, toggleFullSizeApp} = appSlice.actions
-export const {getAppsState} = appSlice.selectors
+export const {addAndOpenApp, updateApp, removeApp, toggleMinimizeApp, toggleOpenApp, toggleFullSizeApp, focusApp} = appSlice.actions
+export const {getAppsState, getFocusedAppId} = appSlice.selectors
