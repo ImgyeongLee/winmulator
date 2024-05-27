@@ -94,7 +94,6 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     height={30}
                                     style={{
                                         objectFit: 'cover',
-                                        layout: 'fill'
                                     }}
                                     className="rounded-[2px]"
                                 />
