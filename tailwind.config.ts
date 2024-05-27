@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             colors: {
                 'xp-taskbar': '#225DDA',
+                'xp-taskbar-300': '#AEB0FF',
                 'xp-taskbar_setting': '#1390e9',
                 'xp-app-select': "#2951f0",
                 'xp-right-click-menu': "#F5F3F8",

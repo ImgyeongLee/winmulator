@@ -154,17 +154,40 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
                         </div>
                     </div>
-                    <div className={"currentPath px-2 flex text-[0.8rem]"}>
-                        <h3>Address</h3>
-                        <div className={"flex-grow flex items-center gap-2"}>
-                            <Image
-                                width={15}
-                                height={10}
-                                src={appState.path}
-                                alt={appState.label + " icon"}
-                                className={"h-4"}
-                            />
-                            <h1>{appState.label}</h1>
+                    <div className={"currentPath px-2 flex text-[0.8rem] xp-app-bb-divider"}>
+                        <h3 className={"mr-1"}>Address</h3>
+                        <div className={"flex-grow border border-xp-taskbar-300"}>
+                            <div className={"ml-1 flex items-center gap-2"}>
+                                <Image
+                                    width={15}
+                                    height={10}
+                                    src={appState.path}
+                                    alt={appState.label + " icon"}
+                                    className={"h-4"}
+                                />
+                                <h1>{appState.label}</h1>
+                                <div className={"ml-auto mr-[1px]"}>
+                                    <Image
+                                        width={15}
+                                        height={10}
+                                        src={'/xp_app_dropdown.webp'}
+                                        alt={appState.label + " icon"}
+                                        className={"h-4"}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <div className={"flex items-center ml-1 mr-2"}>
+                                <Image
+                                    width={15}
+                                    height={10}
+                                    src={'/xp_green_go_forward.webp'}
+                                    alt={appState.label + " icon"}
+                                    className={"h-4"}
+                                />
+                                <h1 className={"ml-1"}>Go</h1>
+                            </div>
                         </div>
                     </div>
                     <div className={"content px-2"}>Main content of the app</div>

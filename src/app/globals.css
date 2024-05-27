@@ -29,8 +29,9 @@
     }
 
     .xp-app-bb-divider {
-        @apply border-b border-b-gray-500
+        @apply border-b border-b-gray-400
     }
+
 }
 
 :root,
