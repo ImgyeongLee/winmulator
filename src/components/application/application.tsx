@@ -72,56 +72,14 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     }
 
     const handleMouseDown = (e: React.MouseEvent) => {
-        // e.stopPropagation()
-        // console.log(e.clientX - appState.x < 5)
-        // if (resizeDirection) {
-        //     setResizeStart({
-        //         width: e.clientX - appState.x,
-        //         height: e.clientY - appState.y
-        //     })
-        //     setIsResizing(true)
-        // } else {
+        // ignore the resize part of the header
+        if (!(Math.abs(appState.y - e.clientY) <= 5)) {
             const offsetX = e.clientX - appState.x
             const offsetY = e.clientY - appState.y
             setDragOffset({x: offsetX, y: offsetY})
             setIsMoving(true)
-        // }
+        }
     }
-
-    // const handleResize = (e: React.MouseEvent) => {
-    //     e.stopPropagation()
-    //     const resizeQ = e.clientX - appState.x < RESIZE_MARGIN
-    //     console.log(resizeQ)
-    //     if (resizeQ) {
-    //         console.log("resizing")
-    //         const newWidth = e.clientX - resizeStart.width
-    //         const newHeight = e.clientY - resizeStart.height
-    //         // dispatch(moveApp({
-    //         //     id: appState.id,
-    //         //     width: newWidth,
-    //         //     height: newHeight
-    //         // }))
-    //         console.log("nW: ", newWidth)
-    //         console.log("nH: ", newHeight)
-    //     }
-    //     else {
-    //         const { clientX, clientY } = e
-    //         const { x, y, width, height } = appState
-    //         let direction = ''
-    //
-    //         if (clientX >= x + width - RESIZE_MARGIN) {
-    //             direction = 'right';
-    //         } else if (clientX <= x + RESIZE_MARGIN) {
-    //             direction = 'left';
-    //         } else if (clientY >= y + height - RESIZE_MARGIN) {
-    //             direction = 'bottom';
-    //         } else if (clientY <= y + RESIZE_MARGIN) {
-    //             direction = 'top';
-    //         }
-    //         console.log("direction: ", direction)
-    //         setResizeDirection(direction);
-    //     }
-    // }
 
     const handleMouseMove = (e: React.MouseEvent) => {
         // e.stopPropagation()

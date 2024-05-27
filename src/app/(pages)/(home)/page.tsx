@@ -73,6 +73,7 @@ export default function Home() {
             setIsResizing(true)
         } else if (rowResize.top) {
             console.log("holding top resize")
+            setIsResizing(true)
         } else if (rowResize.bottom) {
             console.log("holding bottom resize")
         }
@@ -105,21 +106,38 @@ export default function Home() {
                 }))
                 dispatch(moveApp({
                     id: appState.id,
-                    x: x - offsetX,
+                    x: width + offsetX > 350 ? x - offsetX : x,
                     y: y
                 }))
-            } else if (colResize.right) {
-                console.log("rMovingRight")
+            }
+            else if (colResize.right) {
                 const offsetX = clientX - (x + width)
                 dispatch(resizeApp({
                     id: appState.id,
                     width: width + offsetX > 350 ? width + offsetX : width,
                     height: height
                 }))
-            } else if (rowResize.top) {
-            } else if (rowResize.bottom) {
             }
-        } else {
+            else if (rowResize.top) {
+                console.log("rMovingTop")
+                const offsetY = y - clientY
+                console.log("calc: ", height + offsetY)
+                dispatch(resizeApp({
+                    id: appState.id,
+                    height: height + offsetY > 350 ? height + offsetY : height,
+                    width: width
+                }))
+                dispatch(moveApp({
+                    id: appState.id,
+                    y: height + offsetY > 350 ? (y - offsetY) : y,
+                    x: x
+                }))
+            }
+            else if (rowResize.bottom) {
+                console.log("rMovingBottom")
+            }
+        }
+        else {
             if (Math.abs(rW - clientX) <= RESIZE_MARGIN) {
                 setColResize({left: false, right: true})
             } else if (Math.abs(x - clientX) <= RESIZE_MARGIN) {
