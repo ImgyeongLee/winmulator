@@ -1,5 +1,5 @@
 import {useSelector} from "react-redux";
-import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
+import {getAppsState} from "@/redux/appSlice";
 import Application from "@/components/application";
 
 export default function Applications() {

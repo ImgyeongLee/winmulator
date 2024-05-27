@@ -86,7 +86,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             />
                             <h1 className={"xp-text-shadow text-[0.9rem]"}>{appState.label}</h1>
                         </div>
-                        <div className={"controls flex flex-row gap-[1.5px] rounded-[2px]"}>
+                        <div className={"header_controls flex flex-row gap-[1.5px] rounded-[2px]"}>
                             <button
                                 className={"border border-neutral-200 rounded-[2px] xp-app-controls-gradient min-w-[20px] hover:brightness-110"}>
                                 <div
@@ -163,7 +163,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     />
                                     <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
                                 </div>
-                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400"}>
+                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer"}>
                                     <Image
                                         width={25}
                                         height={25}
@@ -171,7 +171,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                         alt={"back arrow button"}
                                     />
                                 </div>
-                                <div className={"ml-2 flex items-center hover:brightness-105"}>
+                                <div className={"ml-2 flex items-center hover:brightness-105 cursor-pointer"}>
                                     <Image
                                         width={25}
                                         height={25}
@@ -180,7 +180,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     />
                                     <h3>Search</h3>
                                 </div>
-                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400"}>
+                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer"}>
                                     <Image
                                         width={25}
                                         height={25}
@@ -189,7 +189,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     />
                                     <h3 className={"ml-2"}>Folders</h3>
                                 </div>
-                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105"}>
+                                <div className={"ml-2 pr-2 flex items-center hover:brightness-105 cursor-pointer"}>
                                     <Image
                                         width={25}
                                         height={25}
@@ -201,8 +201,8 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             </div>
                             <div className={"currentPath px-2 flex text-[0.8rem] xp-app-bb-divider"}>
                                 <h3 className={"mr-1"}>Address</h3>
-                                <div className={"flex-grow border border-xp-taskbar-300"}>
-                                    <div className={"ml-1 flex items-center gap-2"}>
+                                <div className={"flex-grow border border-xp-taskbar-300 cursor-pointer"}>
+                                    <div className={"ml-1 flex items-center gap-2 "}>
                                         <Image
                                             width={15}
                                             height={10}
@@ -223,7 +223,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     </div>
                                 </div>
                                 <div>
-                                    <div className={"flex items-center ml-1 mr-2"}>
+                                    <div className={"flex items-center ml-1 mr-2 cursor-pointer"}>
                                         <Image
                                             width={15}
                                             height={10}
