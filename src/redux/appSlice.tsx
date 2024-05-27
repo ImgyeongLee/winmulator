@@ -47,6 +47,9 @@ const appSlice = createSlice({
             if (state.apps[appId]) {
                 state.apps[appId].minimized = !state.apps[appId].minimized;
             }
+            if (state.focusedAppId === Number(appId)) {
+                state.focusedAppId = null
+            }
         },
         toggleFullSizeApp(state, action: PayloadAction<{ id: number }>) {
             const appId = action.payload.id

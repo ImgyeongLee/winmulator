@@ -4,8 +4,8 @@ import React, {useEffect, useState} from "react";
 import { cn } from "@/app/lib/utils"
 
 import Image from "next/image"
-import {useSelector} from "react-redux";
-import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {focusApp, getAppsState, getFocusedAppId, toggleMinimizeApp} from "@/redux/appSlice";
 
 interface TaskbarProps {
     theme: string;
@@ -15,11 +15,8 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     const [isMute, setIsMute] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
 
+    const dispatch = useDispatch()
     const apps = useSelector(getAppsState)
-    useEffect(() => {
-        console.log("in taskbar: ", apps)
-    }, [apps])
-
     const focusedAppId = useSelector(getFocusedAppId)
 
     useEffect(() => {
@@ -35,6 +32,17 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
             hour: '2-digit',
             minute: '2-digit'
         })
+    }
+
+    const handleToggleApp = (id: string) => {
+        if (apps[id].minimized) {
+            dispatch(toggleMinimizeApp({
+                id: id
+            }))
+        }
+        dispatch(focusApp({
+            id: Number(id)
+        }))
     }
 
     return (
@@ -61,9 +69,10 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                             <div
                                 key={index}
                                 className={cn(`pl-2 flex items-center gap-2 bg-xp-taskbar-unselected w-[170px] h-[21px] xp-taskbar-apps-unselected text-[0.8rem]`, {
-                                    'bg-xp-taskbar-selected': apps[id].id === focusedAppId,
-                                    'xp-taskbar-apps-selected': apps[id].id === focusedAppId
+                                    'bg-xp-taskbar-selected': Number(id) === focusedAppId,
+                                    'xp-taskbar-apps-selected': Number(id) === focusedAppId
                                 })}
+                                onClick={() => handleToggleApp(id)}
                             >
                                 <Image
                                     src={apps[id].path}

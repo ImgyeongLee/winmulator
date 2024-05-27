@@ -53,7 +53,8 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         }))
     }
 
-    const handleAppMinimize = () => {
+    const handleAppMinimize = (e: React.MouseEvent) => {
+        e.stopPropagation()
         dispatch(toggleMinimizeApp({
             id: appState.id
         }))
