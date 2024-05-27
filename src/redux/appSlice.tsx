@@ -29,18 +29,17 @@ const appSlice = createSlice({
             const app = action.payload
             state.apps[app.id] = app;
         },
-        updateApp(state, action: PayloadAction<AppState>) {
-            const app = action.payload
-            if (state.apps[app.id]) {
-                state.apps[app.id] = app
-            }
-        },
         removeApp(state, action: PayloadAction<{ id: number }>) {
             const appId = action.payload.id
             delete state.apps[appId]
             if (state.focusedAppId === appId) {
                 state.focusedAppId = null
             }
+        },
+        moveApp(state, action: PayloadAction<{id: number, x: number, y: number}>) {
+            const {id, x, y} = action.payload
+            state.apps[id].x = x
+            state.apps[id].y = y
         },
         toggleMinimizeApp(state, action: PayloadAction<{ id: number}>) {
             const appId = action.payload.id
@@ -55,12 +54,6 @@ const appSlice = createSlice({
             const appId = action.payload.id
             if (state.apps[appId]) {
                 state.apps[appId].fullSize = !state.apps[appId].fullSize;
-            }
-        },
-        toggleOpenApp(state, action: PayloadAction<AppState>) {
-            const app = action.payload;
-            if (state.apps[app.id]) {
-                state.apps[app.id].open = !state.apps[app.id].open;
             }
         },
         focusApp(state, action: PayloadAction<{ id: number }>) {
@@ -78,5 +71,5 @@ const appSlice = createSlice({
 })
 
 export default appSlice.reducer
-export const {addAndOpenApp, updateApp, removeApp, toggleMinimizeApp, toggleOpenApp, toggleFullSizeApp, focusApp} = appSlice.actions
+export const {addAndOpenApp, removeApp, moveApp, toggleMinimizeApp, toggleFullSizeApp, focusApp} = appSlice.actions
 export const {getAppsState, getFocusedAppId} = appSlice.selectors

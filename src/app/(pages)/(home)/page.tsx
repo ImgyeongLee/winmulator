@@ -6,7 +6,7 @@ import Icon from '@/components/Icons';
 import { useDispatch } from 'react-redux';
 import { setIconSelection } from '@/redux/iconSelectionSlice';
 import RightClickMenu from '@/components/rightClickMenu';
-import Applications from "@/components/applications";
+import Applications from "@/components/application/applications";
 
 export default function Home() {
     const listOfIcons: [number, number, string, string, string, string][] = [

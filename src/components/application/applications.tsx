@@ -1,6 +1,6 @@
 import {useSelector} from "react-redux";
 import {getAppsState} from "@/redux/appSlice";
-import Application from "@/components/application";
+import Application from "@/components/application/application";
 
 export default function Applications() {
     const appsState = useSelector(getAppsState)

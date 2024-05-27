@@ -74,7 +74,7 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                 className={"bg-taskbar-gradient z-1 w-full h-[30px] ml-[-4px] z-1 " +
                     "border border-xp-taskbar "}
             >
-                <div className={"flex ml-2 gap-[1.7px] mt-[5px]"}>
+                <div className={"flex ml-2 gap-[1.7px] mt-[5px] cursor-pointer"}>
                     {Object.keys(apps).map((id, index) => {
                         return (
                             <div

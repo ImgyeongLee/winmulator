@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { cn } from "@/app/lib/utils"
 import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
-import {focusApp, getFocusedAppId, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
+import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
+import {number} from "prop-types";
 
 interface AppState {
     id: number;
@@ -31,9 +32,13 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
 }
 
 const Application: React.FC<ApplicationProps> = ( {appState} ) => {
-    const selectedAppId = useSelector(getFocusedAppId)
+    const [isMoving, setIsMoving] = useState<boolean>(false)
+    const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
+    const [hasLeft, setHasLeft] = useState<boolean>(false)
 
+    const selectedAppId = useSelector(getFocusedAppId)
     const dispatch = useDispatch()
+
     const handleFocus = (e: React.MouseEvent) => {
         e.preventDefault()
         dispatch(focusApp({
@@ -60,6 +65,31 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
         }))
     }
 
+    const handleMouseDown = (e: React.MouseEvent) => {
+        e.stopPropagation()
+        const offsetX = e.clientX - appState.x
+        const offsetY = e.clientY - appState.y
+        setDragOffset({x: offsetX, y: offsetY})
+        setIsMoving(true)
+    }
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isMoving) return
+        e.stopPropagation()
+        const newX = e.clientX - dragOffset.x
+        const newY = e.clientY - dragOffset.y
+
+        dispatch(moveApp({
+            id: appState.id,
+            x: newX,
+            y: newY
+        }))
+    }
+
+    const handleMouseUp = (e: React.MouseEvent) => {
+        setIsMoving(false)
+    }
+
     return (
         <>
             { !appState.minimized &&
@@ -68,14 +98,19 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                         position: "absolute",
                         top: appState.fullSize ? 0 : appState.y,
                         left: appState.fullSize ? 0 : appState.x,
-                        zIndex: selectedAppId === appState.id ? 100 : 10
+                        zIndex: selectedAppId === appState.id ? 100 : 10,
                     }}
                     onClick={handleFocus}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
                     className={cn("w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default", {
                         'w-full h-full': appState.fullSize
                     })}
                 >
-                    <div className={"header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}>
+                    <div
+                        className={"header bg-xp-taskbar flex text-white flex-row items-center px-2 py-1 xp-app-header-gradient rounded-t-[3px]"}
+                        onMouseDown={handleMouseDown}
+                    >
                         <div className={"flex-grow flex items-center gap-2"}>
                             <Image
                                 width={15}

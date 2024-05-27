@@ -96,9 +96,5 @@ export default Icon
 const adjustPosition = (x: number, y: number) => {
     const adjustedX = x > window.innerWidth - 500 ? window.innerWidth - 500 : x;
     const adjustedY = y > window.innerHeight - 400 ? window.innerHeight - 400 : y;
-    console.log("iwidth: ", window.innerWidth)
-    console.log("iheight: ", window.innerHeight)
-    console.log("x: ", x)
-    console.log("y: ", y)
     return { x: adjustedX, y: adjustedY };
 };
