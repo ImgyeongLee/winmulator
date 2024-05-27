@@ -22,7 +22,7 @@ export default function RootLayout({
     return (
         <StoreProvider>
             <html lang="en">
-                <body className={xp.className + ' overflow-x-hidden'}>{children}</body>
+                <body className={xp.className + ' overflow-hidden'}>{children}</body>
             </html>
         </StoreProvider>
     );

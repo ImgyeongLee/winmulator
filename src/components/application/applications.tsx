@@ -3,12 +3,8 @@ import {getAppsState} from "@/redux/appSlice";
 import Application from "@/components/application/application";
 import React from "react";
 
-interface ApplicationsProps {
-    isMoving: boolean;
-    handleMouseUpFromTop: (isMoving: boolean) => void;
-}
 
-const Applications: React.FC<ApplicationsProps> = ({isMoving, handleMouseUpFromTop}) => {
+const Applications = () => {
     const appsState = useSelector(getAppsState)
 
     return (
@@ -18,8 +14,6 @@ const Applications: React.FC<ApplicationsProps> = ({isMoving, handleMouseUpFromT
                     <Application
                         key={index}
                         appState={appsState[Number(key)]}
-                        isMoving={isMoving}
-                        handleMouseUpFromTop={handleMouseUpFromTop}
                     />
                 )
             })}

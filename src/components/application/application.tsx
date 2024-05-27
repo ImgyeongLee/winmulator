@@ -4,7 +4,7 @@ import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
-import {number} from "prop-types";
+
 
 interface AppState {
     id: number;
@@ -19,8 +19,6 @@ interface AppState {
 
 interface ApplicationProps {
     appState: AppState;
-    isMoving: boolean;
-    handleMouseUpFromTop: (isMoving: boolean) => void;
 }
 
 interface SubheaderOptionProps {
@@ -33,8 +31,8 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
     )
 }
 
-const Application: React.FC<ApplicationProps> = ( {appState, isMoving, handleMouseUpFromTop} ) => {
-    // const [isMoving, setIsMoving] = useState<boolean>(false)
+const Application: React.FC<ApplicationProps> = ( {appState} ) => {
+    const [isMoving, setIsMoving] = useState<boolean>(false)
     const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
     const [hasLeft, setHasLeft] = useState<boolean>(false)
 
@@ -72,7 +70,7 @@ const Application: React.FC<ApplicationProps> = ( {appState, isMoving, handleMou
         const offsetX = e.clientX - appState.x
         const offsetY = e.clientY - appState.y
         setDragOffset({x: offsetX, y: offsetY})
-        handleMouseUpFromTop(true)
+        setIsMoving(true)
     }
 
     const handleMouseMove = (e: React.MouseEvent) => {
@@ -88,10 +86,9 @@ const Application: React.FC<ApplicationProps> = ( {appState, isMoving, handleMou
         }))
     }
 
-    // const handleMouseUp = (e: React.MouseEvent) => {
-    //     // setIsMoving(false)
-    //     handleMouseUpFromTop(false)
-    // }
+    const handleMouseUp = (e: React.MouseEvent) => {
+        setIsMoving(false)
+    }
 
     return (
         <>
@@ -105,7 +102,7 @@ const Application: React.FC<ApplicationProps> = ( {appState, isMoving, handleMou
                     }}
                     onClick={handleFocus}
                     onMouseMove={handleMouseMove}
-                    // onMouseUp={() => handleMouseUpFromTop(false)}
+                    onMouseUp={handleMouseUp}
                     className={cn("w-[500px] h-[400px] mb-10 bg-xp-taskbar rounded-[3px] flex flex-col cursor-default", {
                         'w-full h-full': appState.fullSize
                     })}
