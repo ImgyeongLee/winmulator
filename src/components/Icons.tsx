@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from "react";
 import Image from "next/image";
 import {useDispatch, useSelector} from "react-redux";
 import {getSelectedIconId, setIconSelection} from "@/redux/iconSelectionSlice";
-import {addAndOpenApp, focusApp, getAppsState} from "@/redux/appSlice";
+import {addAndOpenApp, focusApp, getAppsState, toggleMinimizeApp} from "@/redux/appSlice";
 
 interface IconProps {
     width: number;
@@ -61,7 +61,11 @@ const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, in
                 fullSize: false
             }))
         } else {
-            console.log("exists")
+            if (appsState[index].minimized) {
+                dispatch(toggleMinimizeApp({
+                    id: index
+                }))
+            }
         }
         dispatch(focusApp({
             id: index
