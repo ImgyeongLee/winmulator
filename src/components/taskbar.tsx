@@ -79,9 +79,10 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                         return (
                             <div
                                 key={index}
-                                className={cn(`pl-2 flex items-center gap-2 bg-xp-taskbar-unselected w-[170px] h-[21px] xp-taskbar-apps-unselected text-[0.8rem]`, {
+                                className={cn(`pl-2 flex items-center gap-2 bg-xp-taskbar-unselected w-[170px] h-[21px] xp-taskbar-apps-unselected text-[0.8rem] hover:brightness-110`, {
                                     'bg-xp-taskbar-selected': Number(id) === focusedAppId,
-                                    'xp-taskbar-apps-selected': Number(id) === focusedAppId
+                                    'xp-taskbar-apps-selected': Number(id) === focusedAppId,
+                                    'hover:brightness-150': Number(id) === focusedAppId
                                 })}
                                 onClick={() => handleToggleApp(id)}
                             >
