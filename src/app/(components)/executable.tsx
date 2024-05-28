@@ -12,6 +12,9 @@ const pixelify_sans = Pixelify_Sans({ subsets: ['latin'] });
 
 export function FileUploadModal({ onClick }: { onClick: () => void }) {
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [fileSize, setFileSize] = useState<number>(-1);
+    const [fileName, setFileName] = useState<string>('');
+    const [hasFlie, setHasFile] = useState<boolean>(false);
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
@@ -22,34 +25,49 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
-            alert(`Selected file: ${file.name}`);
+            setFileName(file.name);
+            setFileSize(file.size);
+            setHasFile(true);
         }
     };
+
+    const calculateFloppyDisk = (size: number) => {
+        return Math.ceil(size / 4);
+    };
     return (
-        <article className="bg-white border-4 border-[#9C0000] flex flex-col justify-center items-center p-2 w-[40%] min-w-[200px]">
-            <div>Our Policy</div>
-            <section className={cn(pixelify_sans.className, 'border-2 border-t-black border-l-black bg-white m-1')}>
-                <div className="overflow-y-auto leading-4 text-left mb-3 max-h-[150px]">
-                    By uploading your file, you agree with our policy. Our policy is nothing. Just enjoy this website.
-                    We are just gonna take the size of your file cuz it is super expensive to store your file into our
-                    database server. What if the user uploads Baldur&lsquo;s Gate 3? Then we are screwed up....So
-                    don&lsquo;t worry about that....
+        <section className="w-full justify-center flex flex-col items-center gap-3">
+            <article className="bg-white border-4 border-[#9C0000] flex flex-col justify-center items-center p-2 w-[40%] min-w-[200px]">
+                <div>Our Policy</div>
+                <section className={cn(pixelify_sans.className, 'border-2 border-t-black border-l-black bg-white m-1')}>
+                    <div className="overflow-y-auto leading-4 text-left mb-3 max-h-[150px]">
+                        By uploading your file, you agree with our policy. Our policy is nothing. Just enjoy this
+                        website. We are just gonna take the size of your file cuz it is super expensive to store your
+                        file into our database server. What if the user uploads Baldur&lsquo;s Gate 3? Then we are
+                        screwed up....So don&lsquo;t worry about that....
+                    </div>
+                </section>
+                <div className="space-x-2">
+                    <button
+                        className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
+                        onClick={handleButtonClick}>
+                        Browse the files
+                    </button>
+                    <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+                    <button
+                        className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
+                        onClick={onClick}>
+                        Cancel
+                    </button>
                 </div>
-            </section>
-            <div className="space-x-2">
-                <button
-                    className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
-                    onClick={handleButtonClick}>
-                    Browse the files
-                </button>
-                <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
-                <button
-                    className="border-2 border-t-white border-l-white border-r-black border-b-black px-2 active:bg-[#b5b5b5] bg-[#CCCCCC]"
-                    onClick={onClick}>
-                    Cancel
-                </button>
-            </div>
-        </article>
+            </article>
+            {hasFlie && (
+                <div className="bg-[#dff6dd] border-4 border-[#4ccf43] py-2 px-4">
+                    Your file is {fileName} with{' '}
+                    <span className="text-[#9C0000] font-semibold italic"> {calculateFloppyDisk(fileSize)}</span> floppy
+                    disks!
+                </div>
+            )}
+        </section>
     );
 }
 
@@ -110,23 +128,35 @@ export function LeaderBoard() {
     }
 
     return (
-        <div>
-            <h1 className="font-semibold">Leaderboard</h1>
-            <div>
-                <div>
-                    Top user: {topUser?.username} - {topUser?.disknum} floppy disks.
-                </div>
-                <div>
-                    &#40;Submission: {topUser?.filename} / {topUser?.filesize}&#41;
+        <div className="w-full">
+            <h1 className="font-semibold my-3">++ Leaderboard ++</h1>
+            <div className="mb-3">
+                <div className="font-bold">Top user: {topUser?.username}</div>
+                <div className="font-bold">{topUser?.disknum} floppy disks.</div>
+                <div className="text-sm">
+                    &#40;Submission: {topUser?.filename} {topUser?.filesize} Bytes&#41;
                 </div>
             </div>
-            <div>
-                <div>Board</div>
-                <div>
+            <div className="border-4 border-[#9C0000] bg-white flex flex-col justify-center items-center">
+                <div className="bg-[#9C0000] p-2 font-bold text-white w-full">Ranking</div>
+                <table className="self-center text-center w-full">
+                    <tr className="w-full max-md:text-xs">
+                        <th>Username</th>
+                        <th># Disk</th>
+                        <th>Filename</th>
+                        <th>Filesize</th>
+                    </tr>
                     {data.map((d, i) => {
-                        return <div key={i}>{d.username}</div>;
+                        return (
+                            <tr key={i} className="bg-slate-100 w-full max-md:text-xs">
+                                <td>{d.username}</td>
+                                <td>{d.disknum}</td>
+                                <td>{d.filename}</td>
+                                <td>{d.filesize}</td>
+                            </tr>
+                        );
                     })}
-                </div>
+                </table>
             </div>
         </div>
     );
@@ -167,7 +197,7 @@ export function FloppyDiskProgramWin2000WinXP() {
                 </Link>
             </div>
             <section className="px-6">
-                <article className="bg-[#c0e6bd] border-4 border-[#4ccf43] p-4 flex flex-col justify-center items-center">
+                <article className="bg-[#c0e6bd] border-4 border-[#4ccf43] p-4 max-md:p-1 flex flex-col justify-center items-center">
                     <div className="text-red-700 text-2xl font-bold pb-3">&#8902; Menu &#8902;</div>
                     <div className="flex flex-col items-center gap-2 mb-4">
                         <div className="flex flex-col md:flex-row gap-1 items-center justify-center">
@@ -277,7 +307,74 @@ export function FloppyHomeWin7() {
 }
 
 export function FloppyLeaderBoardWin7() {
-    return <div className="p-4 mt-3 bg-[#F4F4F4] ">Leaderboard</div>;
+    const [topUser, setTopUser] = useState<FloppyData>();
+    const [data, setData] = useState<FloppyData[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string>('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await readTopFloppyData();
+                const data = await readFloppyData();
+                if (!result) {
+                    throw new Error('Network response was not ok');
+                }
+                if (!data) {
+                    throw new Error('Network response was not ok');
+                }
+                setTopUser(result);
+                setData(data);
+            } catch (error) {
+                setError('ERROR!');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error</div>;
+    }
+    return (
+        <div className="w-full">
+            <div className="my-3 text-center">
+                <div className="font-bold">
+                    Top user: {topUser?.username} with {topUser?.disknum} floppy disks.
+                </div>
+                <div className="text-sm">
+                    &#40;Submission: {topUser?.filename} {topUser?.filesize} Bytes&#41;
+                </div>
+            </div>
+            <div className="border-2 border-slate-300 bg-white flex flex-col justify-center items-center">
+                <div className="bg-slate-300 p-2 font-bold text-black w-full text-center">Ranking</div>
+                <table className="self-center text-center w-full">
+                    <tr className="w-full max-md:text-xs">
+                        <th>Username</th>
+                        <th># Disk</th>
+                        <th>Filename</th>
+                        <th>Filesize</th>
+                    </tr>
+                    {data.map((d, i) => {
+                        return (
+                            <tr key={i} className="bg-slate-100 w-full max-md:text-xs">
+                                <td>{d.username}</td>
+                                <td>{d.disknum}</td>
+                                <td>{d.filename}</td>
+                                <td>{d.filesize}</td>
+                            </tr>
+                        );
+                    })}
+                </table>
+            </div>
+        </div>
+    );
 }
 
 export function FloppyUploadWin7() {

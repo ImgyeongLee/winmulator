@@ -4,7 +4,7 @@ import prisma from '@/app/lib/prisma';
 import { FloppyDataFields } from './types';
 
 export async function createFloppyData(data: FloppyDataFields) {
-    const { username, email, filename, filesize } = data;
+    const { username, email, filename, filesize, disknum } = data;
     await prisma.floppyData.upsert({
         where: {
             email: email,
@@ -15,6 +15,7 @@ export async function createFloppyData(data: FloppyDataFields) {
             email: email,
             filename: filename,
             filesize: filesize,
+            disknum: disknum,
         },
     });
 
@@ -24,7 +25,7 @@ export async function createFloppyData(data: FloppyDataFields) {
 export async function readTopFloppyData() {
     const data = await prisma.floppyData.findFirst({
         orderBy: {
-            filesize: 'desc',
+            disknum: 'desc',
         },
     });
     return data;
