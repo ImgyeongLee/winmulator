@@ -196,7 +196,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                     <div className={cn("container min-w-full px-1 flex-grow flex pb-1", {
                         'min-w-[100vw]': appState.fullSize
                     })}>
-                        <div className={"body flex-grow flex flex-col bg-xp-right-click-menu overflow-auto"}>
+                        <div className={"body flex-grow flex flex-col bg-xp-right-click-menu overflow-auto h-fit"}>
                             <div className={"subheader px-1 flex gap-1 xp-app-bb-divider text-[0.8rem]"}>
                                 <SubheaderOption name={"File"} />
                                 <SubheaderOption name={"Edit"} />

@@ -3,6 +3,8 @@ import RightBody from "@/components/application/apps/myComputer/rightBody";
 import {cn} from "@/app/lib/utils";
 import {useSelector} from "react-redux";
 import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
+import {useEffect, useState} from "react";
+import {number} from "prop-types";
 
 export default function MyComputer() {
     const items = {
@@ -21,14 +23,15 @@ export default function MyComputer() {
 
     const appsState = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
-    const appState = focusedAppId ? appsState[focusedAppId] : undefined
-    const heightClass = appState && appState.height < 516 ? { height: `${appState.height - 110}px` } : { height: '100%' };
-
+    const appState = focusedAppId != null ? Number(focusedAppId) === 0 ? appsState[focusedAppId] : undefined : undefined
+    const height = appState && appState.height || appsState[0].height
 
     return (
         <div
-            className={cn("app-body grid grid-cols-6 h-full overflow-auto")}
-            style={heightClass}
+            className={cn("app-body grid grid-cols-6 overflow-auto")}
+            style={{
+                height: height - 110
+            }}
         >
             <div className={"left-menu col-span-2 h-full overflow-auto"}>
                 <LeftSubMenus items={items} showAbout={true} />
