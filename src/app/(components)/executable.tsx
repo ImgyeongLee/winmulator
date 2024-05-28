@@ -108,7 +108,7 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
     };
 
     const calculateFloppyDisk = (size: number) => {
-        return Math.ceil(size / 4);
+        return Math.ceil(size / 4000);
     };
     return (
         <section className="w-full justify-center flex flex-col items-center gap-3" onClick={handleEventBubbling}>
@@ -341,6 +341,36 @@ export function FloppyDiskProgramWin7() {
 }
 
 export function FloppyHomeWin7() {
+    const [topUser, setTopUser] = useState<FloppyData>();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string>('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await readTopFloppyData();
+                if (!result) {
+                    throw new Error('Network response was not ok');
+                }
+                setTopUser(result);
+            } catch (error) {
+                setError('ERROR!');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error</div>;
+    }
+
     return (
         <div className="flex flex-col md:grid-cols-3 md:grid mt-3 gap-3">
             <div className="md:col-span-2 bg-slate-100 p-4 flex flex-col lg:flex-row items-center">
@@ -364,7 +394,9 @@ export function FloppyHomeWin7() {
                 </div>
             </div>
             <div className="p-4 bg-hiring bg-cover bg-center h-full w-full min-h-[500px] self-center"></div>
-            <div className="md:col-span-3 bg-slate-300 p-4">dddf</div>
+            <div className="md:col-span-3 bg-slate-300 p-4 font-bold">
+                Current Top User: {topUser?.username} with {topUser?.disknum} disks!
+            </div>
         </div>
     );
 }
@@ -441,8 +473,86 @@ export function FloppyLeaderBoardWin7() {
 }
 
 export function FloppyUploadWin7() {
-    const [fileSize, setFileSize] = useState<number>(0);
+    const { register, handleSubmit, formState, reset } = useForm<FloppyDataFormFields>();
     const fileInputRef = useRef<HTMLInputElement>(null);
+    const [fileSize, setFileSize] = useState<number>(-1);
+    const [fileName, setFileName] = useState<string>('');
+    const [hasFile, setHasFile] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+    const onSubmit: SubmitHandler<FloppyDataFormFields> = async (data) => {
+        const { username, email, filename, desc } = data;
+        const input: FloppyDataFields = {
+            username: username,
+            email: email,
+            filename: filename.length == 0 ? fileName : filename,
+            desc: desc,
+            filesize: fileSize,
+            disknum: calculateFloppyDisk(fileSize),
+        };
+
+        try {
+            await createFloppyData(input);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+        } finally {
+            setIsSuccess(true);
+        }
+    };
+
+    useEffect(() => {
+        if (formState.isSubmitSuccessful) {
+            reset({ username: '', email: '', filename: '', desc: '' });
+        }
+    }, [formState]);
+
+    const renderForm = () => {
+        return (
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col p-4 gap-1 bg-[#EAEAEA] w-[60%] mt-4">
+                <h1 className="text-gray-950 font-bold text-2xl mt-3 text-center">Leave your record!</h1>
+                <div className="text-gray-950 text-xs text-center mb-3">
+                    Note: If you already have submitted your stuff, the submission will be updated.
+                </div>
+                <input
+                    className="py-1 px-2 border border-slate-400 rounded"
+                    {...register('username')}
+                    type="text"
+                    required
+                    placeholder="Your username"
+                />
+                <input
+                    className="py-1 px-2 border border-slate-400 rounded"
+                    {...register('email')}
+                    type="email"
+                    required
+                    placeholder="Your email"
+                />
+                <input
+                    className="py-1 px-2 border border-slate-400 rounded"
+                    {...register('filename')}
+                    type="text"
+                    placeholder="Edit your filename (Default: Your original filename)"
+                />
+                <input
+                    className="py-1 px-2 border border-slate-400 rounded"
+                    {...register('desc')}
+                    type="text"
+                    placeholder="Description..."
+                />
+                <button type="submit" className="win7-button mt-5">
+                    Submit!
+                </button>
+                {isError && <div className="text-center text-[#9C0000] text-sm">Something went wrong. Try again!</div>}
+                {isSuccess && <div className="text-center text-[#06d703] text-sm">Submitted!</div>}
+            </form>
+        );
+    };
+
+    const handleEventBubbling = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
@@ -453,15 +563,24 @@ export function FloppyUploadWin7() {
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (file) {
+            setFileName(file.name);
             setFileSize(file.size);
+            setHasFile(true);
         }
+    };
+
+    const calculateFloppyDisk = (size: number) => {
+        return Math.ceil(size / 4000);
     };
 
     return (
         <div className="flex flex-col mt-3 gap-3">
             <div className="md:col-span-2 bg-[#EAEAEA] p-4">
                 <div className="font-bold text-xl pb-2">What is this service for?</div>
-                <div>SERVICE</div>
+                <div>
+                    Upload your file and check how many floppy disks are needed to save it! You can upload the largest
+                    file possible to set a record. Experience the evolution of technology!
+                </div>
             </div>
             <div className="p-4 bg-[#F4F4F4] flex flex-col justify-center items-center">
                 <div className="w-[50%] min-w-[250px]">
@@ -474,7 +593,7 @@ export function FloppyUploadWin7() {
                     </div>
                 </div>
 
-                <div className="space-x-2">
+                <div className="space-x-2" onClick={handleEventBubbling}>
                     <div>
                         <button className="win7-button" onClick={handleButtonClick}>
                             Browse the files
@@ -482,8 +601,13 @@ export function FloppyUploadWin7() {
                     </div>
                     <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                 </div>
-
-                {fileSize > 0 && <div className="">Your file size is {fileSize} bytes.</div>}
+                {hasFile && (
+                    <div className="text-xs mt-3">
+                        Your file: {fileName} / Size: {calculateFloppyDisk(fileSize)} floppy disks &#40;{fileSize}{' '}
+                        bytes&#41;
+                    </div>
+                )}
+                {hasFile && renderForm()}
             </div>
         </div>
     );
