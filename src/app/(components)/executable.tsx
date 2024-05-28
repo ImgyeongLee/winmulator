@@ -3,6 +3,7 @@
 import { Lora, Pixelify_Sans } from 'next/font/google';
 import { cn } from '../lib/utils';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useRef, ChangeEvent } from 'react';
 const lora = Lora({ subsets: ['latin'] });
 const pixelify_sans = Pixelify_Sans({ subsets: ['latin'] });
@@ -123,20 +124,6 @@ export function FloppyDiskProgramWin2000WinXP() {
 }
 
 export function FloppyDiskProgramWin7() {
-    const fileInputRef = useRef<HTMLInputElement>(null);
-
-    const handleButtonClick = () => {
-        if (fileInputRef.current) {
-            fileInputRef.current.click();
-        }
-    };
-
-    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-        const file = event.target.files?.[0];
-        if (file) {
-            alert(`Selected file: ${file.name}`);
-        }
-    };
     const [isFileToggle, setIsFileToggle] = useState<boolean>(false);
     const [isBoardToggle, setIsBoardToggle] = useState<boolean>(false);
     const [title, setTitle] = useState<string>('Home');
@@ -186,8 +173,27 @@ export function FloppyDiskProgramWin7() {
 export function FloppyHomeWin7() {
     return (
         <div className="flex flex-col md:grid-cols-3 md:grid mt-3 gap-3">
-            <div className="md:col-span-2 bg-slate-100 p-4">dd</div>
-            <div className="p-4 bg-slate-200">ff</div>
+            <div className="md:col-span-2 bg-slate-100 p-4 flex flex-col lg:flex-row items-center">
+                <Image src="/floppy_disk.webp" alt="disk" width={500} height={500} />
+                <div className="p-4">
+                    <div className="font-semibold text-2xl">About floppy disk</div>
+                    <div className="leading-tight mt-2">
+                        A floppy disk or floppy diskette is a type of disk storage composed of a thin and flexible disk
+                        of a magnetic storage medium in a square or nearly square plastic enclosure lined with a fabric
+                        that removes dust particles from the spinning disk.
+                    </div>
+                    <div className="leading-tight mt-2">
+                        You cannot but the disks here, but at least you can see our portfolios. Check these out!
+                    </div>
+                    <Link href="https://imgyeong.vercel.app/" className="text-[#2626ff] underline underline-offset-4">
+                        @Imgyeong
+                    </Link>{' '}
+                    <Link href="https://hlakarki.vercel.app/" className="text-[#2626ff] underline underline-offset-4">
+                        @Hla
+                    </Link>
+                </div>
+            </div>
+            <div className="p-4 bg-hiring bg-cover bg-center h-full w-full min-h-[500px] self-center"></div>
             <div className="md:col-span-3 bg-slate-300 p-4">dddf</div>
         </div>
     );
@@ -240,7 +246,7 @@ export function FloppyUploadWin7() {
                     <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
                 </div>
 
-                {fileSize && <div className="">Your file size is {fileSize} bytes.</div>}
+                {fileSize > 0 && <div className="">Your file size is {fileSize} bytes.</div>}
             </div>
         </div>
     );

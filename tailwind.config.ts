@@ -26,6 +26,7 @@ const config: Config = {
                 xp: "url('/xp/windowsXP.webp')",
                 w7: "url('/windows7.webp')",
                 w2000: "url('/windows2000.webp')",
+                hiring: "url('/hiring.webp')",
             },
             keyframes: {
                 rainbow: {
