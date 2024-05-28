@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Taskbar from '@/components/taskbar';
+import Taskbar from '@/components/taskbar/taskbar';
 import Icon from '@/components/Icons';
 import {useDispatch, useSelector} from 'react-redux';
 import { setIconSelection } from '@/redux/iconSelectionSlice';

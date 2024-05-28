@@ -33,13 +33,28 @@
     }
 
     .xp-taskbar-apps-unselected {
-        box-shadow: rgba(0, 0, 0, 0.3) -1px 0px inset, rgba(255, 255, 255, 0.2) 1px 1px 1px inset;
+        box-shadow: rgba(0, 0, 0, 0.3) -1px 0 inset, rgba(255, 255, 255, 0.2) 1px 1px 1px inset;
     }
 
     .xp-taskbar-apps-selected {
-        box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 1px 1px inset, rgba(0, 0, 0, 0.7) 1px 0px 1px inset;
+        box-shadow: rgba(0, 0, 0, 0.2) 0 0 1px 1px inset, rgba(0, 0, 0, 0.7) 1px 0 1px inset;
     }
 
+    .xp-start-menu-header-gradient {
+        /*background: rgb(44,125,225);*/
+        /*background: linear-gradient(0deg, rgba(44,125,225,1) 72%, rgba(102,164,240,1) 99%);*/
+        background: rgb(44,125,225);
+        background: linear-gradient(0deg, rgba(44,125,225,1) 13%, rgba(42,123,223,1) 21%, rgba(40,121,221,1) 28%, rgba(35,117,218,1) 35%, rgba(32,115,216,1) 48%, rgba(30,113,214,1) 62%, rgba(27,110,212,1) 71%, rgba(13,96,203,1) 86%, rgba(102,164,240,1) 99%);
+    }
+
+    .xp-start-menu-gradient {
+        background: rgb(44,125,225);
+        background: linear-gradient(0deg, rgba(44,125,225,1) 26%, rgba(70,141,229,1) 50%, rgba(83,149,231,1) 61%, rgba(114,168,235,1) 72%, rgba(139,184,239,1) 84%, rgba(161,197,242,1) 94%, rgba(177,207,244,1) 98%);
+    }
+
+    .xp-box-shadow {
+        box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 2px;
+    }
 }
 
 :root,

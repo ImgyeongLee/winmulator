@@ -5,11 +5,11 @@ import { cn } from './lib/utils';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const xp = Noto_Sans({ weight: ['400'], subsets: ['latin'] });
+const xp = Noto_Sans({ weight: ['400', '500', '600', '700', '800', '900'], subsets: ['latin'] });
 
 export const metadata: Metadata = {
-    title: 'Windows XP, 2000 and 7 emulator',
-    description: 'Developed by Hla Htun and Imgyeong Lee',
+    title: 'Winmulator',
+    description: 'Windows XP, 2000 and 7 emulator. Developed by Hla Htun and Imgyeong Lee',
 };
 
 // redux provider
