@@ -15,7 +15,6 @@ interface menuOptionProps {
     title: string;
     submenu: boolean;
     border: boolean;
-    onRefresh: () => void;
 }
 
 const MenuOption: React.FC<menuOptionProps> = ( {title, submenu, border, } ) => {
