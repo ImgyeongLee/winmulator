@@ -122,6 +122,11 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
         );
     };
 
+    const handleRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        e.preventDefault()
+        e.stopPropagation()
+    };
+
     return (
         <>
             {!appState.minimized && (
@@ -137,6 +142,7 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
                     onClick={handleFocus}
                     onMouseMove={handleMouseMove}
                     onMouseUp={handleMouseUp}
+                    onContextMenu={handleRightClick}
                     className={cn(
                         'cursor-inherit mb-10 bg-xp-taskbar-unselected rounded-[3px] flex flex-col select-none',
                         {

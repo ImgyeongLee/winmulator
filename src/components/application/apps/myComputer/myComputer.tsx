@@ -24,7 +24,7 @@ export default function MyComputer() {
     const appsState = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
     const appState = focusedAppId != null ? Number(focusedAppId) === 0 ? appsState[focusedAppId] : undefined : undefined
-    const height = appState ? appState.fullSize ? -1 : appState.height || appsState[1].height : 450
+    const height = appState ? appState.fullSize ? -1 : appsState[0].height : appsState[0].height
 
     return (
         <div

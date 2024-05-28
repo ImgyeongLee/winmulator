@@ -9,7 +9,7 @@ export default function FloppyDisk() {
     const appsState = useSelector(getAppsState);
     const focusedAppId = useSelector(getFocusedAppId);
     const appState = focusedAppId != null ? (focusedAppId === 1 ? appsState[focusedAppId] : undefined) : undefined;
-    const height = appState ? (appState.fullSize ? -1 : appState.height || appsState[1].height) : 450;
+    const height = appState ? (appState.fullSize ? -1 : appsState[1].height) : appsState[1].height;
 
     return (
         <div
