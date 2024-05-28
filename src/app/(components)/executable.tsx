@@ -16,8 +16,13 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
     const [fileName, setFileName] = useState<string>('');
     const [hasFlie, setHasFile] = useState<boolean>(false);
 
+    const handleEventBubbling = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
+
     const handleButtonClick = () => {
         if (fileInputRef.current) {
+            console.log("I don't know what the fuck is going on");
             fileInputRef.current.click();
         }
     };
@@ -35,7 +40,7 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
         return Math.ceil(size / 4);
     };
     return (
-        <section className="w-full justify-center flex flex-col items-center gap-3">
+        <section className="w-full justify-center flex flex-col items-center gap-3" onClick={handleEventBubbling}>
             <article className="bg-white border-4 border-[#9C0000] flex flex-col justify-center items-center p-2 w-[40%] min-w-[200px]">
                 <div>Our Policy</div>
                 <section className={cn(pixelify_sans.className, 'border-2 border-t-black border-l-black bg-white m-1')}>
