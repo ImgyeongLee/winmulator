@@ -1,5 +1,7 @@
 import Image from "next/image";
 import {cn} from "@/app/lib/utils";
+import {IoTriangleSharp} from "react-icons/io5";
+import React from "react";
 
 export default function StartMenu() {
     const startMenuLeftItems: [path: string, label: string, sublabel:string, width: number][] = [
@@ -15,9 +17,25 @@ export default function StartMenu() {
         ['/xp/appIcons/pinball3d.webp', '3D Pinball', '', 20]
 
     ]
+
+    const startMenuRightItems: [path: string, label: string, subMenu: boolean][] = [
+        ['/xp/startMenu/my_documents.webp', 'My Documents', false],
+        ['/xp/startMenu/my_pictures.webp', 'My Pictures', false],
+        ['/xp/startMenu/my_musics.webp', 'My Musics', false],
+        ['/xp/startMenu/recent_documents.webp', 'Recent Documents', true],
+        ['/xp/appIcons/xp_my_computer.webp', 'My Computer', false],
+        ['', '', false],
+        ['/xp/startMenu/connect_to.webp', 'Connect To', true],
+        ['/xp/startMenu/printer_faxes.webp', 'Printers and Faxes', false],
+        ['', '', false],
+        ['/xp/startMenu/control_panel.webp', 'Control Panel', false],
+        ['/xp/startMenu/command_prompt.webp', 'Run', false],
+        ['/xp/startMenu/support_help.webp', 'Help and Support', false],
+    ]
+
     return (
         <div className={"ml-[2px] main-container absolute z-500 bottom-[33px] flex flex-col justify-start  " +
-            " w-[380px] h-[500px] rounded-[8px] bg-xp-start-menu xp-box-shadow"}>
+            " w-[400px] h-fit rounded-[8px] bg-xp-start-menu xp-box-shadow"}>
             <div
                 className={"header rounded-[8px] flex items-center gap-2 xp-start-menu-header-gradient px-1 py-2"}
             >
@@ -33,10 +51,10 @@ export default function StartMenu() {
                 <h2 className={"font-bold text-[0.9rem]"}>User</h2>
             </div>
             <div
-                className={"flex-grow body grid grid-cols-2 divide-x-2 divide-xp-start-menu-right-border " +
+                className={"body-content flex-grow grid grid-cols-2 border border-xp-start-menu-right-border" +
                     " bg-white mx-[3px]"}
             >
-                <div className={"flex flex-col left-side ml-1 mt-1"}>
+                <div className={"left-side flex flex-col ml-1 mt-1"}>
                     <div
                         className={"flex-grow"}
                     >
@@ -46,8 +64,8 @@ export default function StartMenu() {
                                     return <div key={index+width} className={"border-b border-gray-400/50 mt-1 mb-2"}></div>
                                 }
                                 return (
-                                    <div key={index} className={cn("flex items-center gap-2 mb-2 text-black", {
-                                        'mb-1': sublabel
+                                    <div key={index} className={cn("cursor-pointer flex items-center gap-2 mb-2 py-1 text-black hover:bg-xp-taskbar-selected pl-1 mr-1 group", {
+                                        'mb-1 py-0': sublabel
                                     })}>
                                         <Image
                                             width={width}
@@ -58,17 +76,17 @@ export default function StartMenu() {
                                                 'rounded-full': label === '3D Pinball'
                                             })}
                                         />
-                                        <div className={"flex flex-col"}>
-                                            <h3 className={"text-[0.8rem] mr-auto"}>{label}</h3>
-                                            <h3 className={"text-[0.7rem] text-gray-900/60 mr-auto"}>{sublabel}</h3>
+                                        <div className={"flex flex-col group-hover:text-white"}>
+                                            <h3 className={"text-[0.8rem] mr-auto group-hover:text-white"}>{label}</h3>
+                                            <h3 className={"text-[0.7rem] text-gray-900/60 mr-auto group-hover:text-white"}>{sublabel}</h3>
                                         </div>
                                     </div>
                                 )
                             })
                         }
                     </div>
-                    <div className={"text-black font-bold text-[0.8rem] flex items-center justify-end items-center " +
-                        " py-2 border-t border-gray-400/50 w-full "}>
+                    <div className={"all-prog text-black font-bold text-[0.8rem] flex items-center justify-end items-center " +
+                        " py-2 border-t border-gray-400/50 w-full cursor-pointer hover:bg-xp-taskbar-selected hover:text-white"}>
                         <h3>All Programs</h3>
                         <Image
                             width={20}
@@ -79,8 +97,31 @@ export default function StartMenu() {
                         />
                     </div>
                 </div>
-                <div className={"right-side"}>
-                    R
+                <div className={"right-side pt-1 pl-1 border-l-2 border-xp-start-menu-right-border"}>
+                    {
+                        startMenuRightItems.map(([path, label,  subMenu], index) => {
+                            if (!path) {
+                                return <div key={index} className={"border-b border-gray-400/50 mt-1 mb-2"}></div>
+                            }
+                            return (
+                                <div key={index} className={cn("flex items-center gap-2 pl-1 mb-2 py-1 text-black cursor-pointer hover:bg-xp-taskbar-selected hover:text-white", {})}>
+                                    <Image
+                                        width={20}
+                                        height={20}
+                                        src={path}
+                                        alt={label + ' icon'}
+                                        className={cn('w-[30px] h-[30px]', {})}
+                                    />
+                                    <h3 className={cn("text-[0.8rem] mr-auto", {
+                                        'font-bold': index < 5
+                                    })}>{label}</h3>
+                                    { subMenu &&
+                                        <IoTriangleSharp className={"mr-2 rotate-90 text-[0.45rem]"}/>
+                                    }
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
             <div
