@@ -76,7 +76,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
             className={`text-center text-white flex flex-row justify-between items-center`}>
             <button onClick={handleTaskbarClick}>
                 <Image
-                    src="/windowsXP_taskbar_start.webp"
+                    src="/xp/windowsXP_taskbar_start.webp"
                     alt="windowsXP taskbar"
                     width={100}
                     height={100}
@@ -117,7 +117,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
                     'flex flex-wrap justify-start items-center'
                 }>
                 <Image
-                    src={isMute ? '/xp_speaker_mute.webp' : '/xp_speaker.webp'}
+                    src={isMute ? '/xp/indicatorIcons/xp_speaker_mute.webp' : '/xp/indicatorIcons/xp_speaker.webp'}
                     alt={'windowsXP speaker icon'}
                     width={200}
                     height={400}
@@ -125,7 +125,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
                     onClick={() => setIsMute((prev) => !prev)}
                 />
                 <Image
-                    src={'/xp_security_error.webp'}
+                    src={'/xp/indicatorIcons/xp_security_error.webp'}
                     alt={'windowsXP security risk awareness icon'}
                     width={200}
                     height={400}

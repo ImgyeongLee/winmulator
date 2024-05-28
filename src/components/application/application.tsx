@@ -178,7 +178,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                             >
                                 <div className={"relative w-full h-full"} onClick={handleAppClose}>
                                     <Image
-                                        src={'/xp_app_close.webp'}
+                                        src={'/xp/appControls/xp_app_close.webp'}
                                         alt={"close app icon"}
                                         width={30}
                                         height={30}
@@ -210,7 +210,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_back.webp"}
+                                        src={"/xp/appControls/xp_back.webp"}
                                         alt={"back arrow button"}
                                     />
                                     <h3 className={"text-[0.6rem]"}>Back</h3>
@@ -220,7 +220,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_forward.webp"}
+                                        src={"/xp/appControls/xp_forward.webp"}
                                         alt={"back arrow button"}
                                     />
                                     <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
@@ -229,7 +229,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_folder_green_arrow.webp"}
+                                        src={"/xp/appControls/xp_folder_green_arrow.webp"}
                                         alt={"back arrow button"}
                                     />
                                 </div>
@@ -237,7 +237,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_search.webp"}
+                                        src={"/xp/appControls/xp_search.webp"}
                                         alt={"back arrow button"}
                                     />
                                     <h3>Search</h3>
@@ -246,7 +246,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_folders_open_empty.webp"}
+                                        src={"/xp/appIcons/xp_folders_open_empty.webp"}
                                         alt={"back arrow button"}
                                     />
                                     <h3 className={"ml-2"}>Folders</h3>
@@ -255,7 +255,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     <Image
                                         width={25}
                                         height={25}
-                                        src={"/xp_change_folder_view.webp"}
+                                        src={"/xp/appControls/xp_change_folder_view.webp"}
                                         alt={"back arrow button"}
                                     />
                                     <IoTriangleSharp className={"ml-2 rotate-180 text-[0.45rem]"}/>
@@ -277,7 +277,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                             <Image
                                                 width={15}
                                                 height={10}
-                                                src={'/xp_app_dropdown.webp'}
+                                                src={'/xp/appControls/xp_app_dropdown.webp'}
                                                 alt={appState.label + " icon"}
                                                 className={"h-4"}
                                             />
@@ -289,7 +289,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                         <Image
                                             width={15}
                                             height={10}
-                                            src={'/xp_green_go_forward.webp'}
+                                            src={'/xp/appControls/xp_green_go_forward.webp'}
                                             alt={appState.label + " icon"}
                                             className={"h-4"}
                                         />
