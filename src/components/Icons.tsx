@@ -18,7 +18,8 @@ const defaultOpenPositions: { x: number, y: number } []= [
     { x: 150, y: 200},
     { x: 200, y: 250},
     { x: 550, y: 100},
-    { x: 500, y: 400}
+    { x: 500, y: 400},
+    { x: 400, y: 500}
 ]
 
 const Icon: React.FC<IconProps> = ( {width, height, path, alt, others, label, index} ) => {
