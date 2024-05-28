@@ -41,8 +41,6 @@
     }
 
     .xp-start-menu-header-gradient {
-        /*background: rgb(44,125,225);*/
-        /*background: linear-gradient(0deg, rgba(44,125,225,1) 72%, rgba(102,164,240,1) 99%);*/
         background: rgb(44,125,225);
         background: linear-gradient(0deg, rgba(44,125,225,1) 13%, rgba(42,123,223,1) 21%, rgba(40,121,221,1) 28%, rgba(35,117,218,1) 35%, rgba(32,115,216,1) 48%, rgba(30,113,214,1) 62%, rgba(27,110,212,1) 71%, rgba(13,96,203,1) 86%, rgba(102,164,240,1) 99%);
     }
@@ -54,6 +52,18 @@
 
     .xp-box-shadow {
         box-shadow: rgba(0, 0, 0, 0.5) 2px 4px 2px;
+    }
+
+    .bg-xp-my-comp-left-menu {
+        background: linear-gradient(rgb(116, 138, 255) 0%, rgb(64, 87, 211) 100%);
+    }
+
+    .bg-xp-my-comp-left-submenus {
+        background: linear-gradient(to right, rgb(180, 200, 251) 0%, rgb(164, 185, 251) 50%, rgb(180, 200, 251) 100%) rgba(198, 211, 255, 0.87);
+    }
+
+    .bg-xp-my-comp-left-menu-title {
+        background: linear-gradient(to right, rgb(240, 240, 255) 0px, rgb(240, 240, 255) 30%, rgb(168, 188, 255) 100%);
     }
 }
 

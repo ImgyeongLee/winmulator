@@ -4,7 +4,7 @@ import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
-import MyComputer from "@/components/application/apps/myComputer";
+import MyComputer from "@/components/application/apps/myComputer/myComputer";
 import FloppyDisk from "@/components/application/apps/floppyDisk";
 import Recycle from "@/components/application/apps/recycle";
 import About from "@/components/application/apps/About";
@@ -297,7 +297,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"content px-2 flex-grow"}>{appMainContents[appState.id]}</div>
+                            <div className={"app-container flex-grow"}>{appMainContents[appState.id]}</div>
                         </div>
                     </div>
                 </div>
