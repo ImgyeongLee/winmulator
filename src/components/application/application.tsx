@@ -9,7 +9,7 @@ import { focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggl
 import MyComputer from '@/components/application/apps/myComputer/myComputer';
 import FloppyDisk from '@/components/application/apps/floppyDisk';
 import Recycle from '@/components/application/apps/recycleBin/recycleBin';
-import About from '@/components/application/apps/About';
+import { AboutHla, AboutImgyeong } from '@/components/application/apps/About';
 
 const RESIZE_MARGIN = 5;
 
@@ -45,7 +45,8 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
         <MyComputer key={'myComputer'} />,
         <FloppyDisk key={'floppyDisk'} />,
         <Recycle key={'recycleBin'} />,
-        <About key={'about_docx_file'} />,
+        <AboutHla key={'about_hla'} />,
+        <AboutImgyeong key={'about_imgyeong'} />,
     ];
 
     const focusedAppId = useSelector(getFocusedAppId);

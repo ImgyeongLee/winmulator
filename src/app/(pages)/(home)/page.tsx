@@ -15,7 +15,8 @@ export default function Home() {
         [35, 35, '/xp/appIcons/xp_my_computer.webp', 'windows xp my computer icon', '', 'My Computer'],
         [35, 35, '/xp/appIcons/xp_floppy.webp', 'windows xp floppy disk icon', '', 'Floppy Disk'],
         [35, 35, '/xp/appIcons/xp_recycle_empty.webp', 'windows xp recycle bin empty icon', '', 'Recycle'],
-        [35, 35, '/xp/appIcons/xp_word_file.webp', 'windows xp word document file icon', '', 'About.txt'],
+        [35, 35, '/xp/startMenu/notepad.webp', 'windows xp notepad icon', '', 'Hla.txt'],
+        [35, 35, '/xp/startMenu/notepad.webp', 'windows xp notepad icon', '', 'Imgyeong.txt'],
     ];
 
     const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false);
