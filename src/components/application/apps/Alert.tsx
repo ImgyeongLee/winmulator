@@ -16,7 +16,7 @@ export default function Alert() {
             style={{
                 height: height === -1 ? '100vh' : height - 110,
             }}>
-            <div>Not found</div>
+            <div>C:\ Application not found</div>
         </div>
     );
 }
