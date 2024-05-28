@@ -11,9 +11,9 @@ async function main() {
         create: {
             username: 'deepbread',
             email: 'test@gmail.com',
-            filename: 'postman',
-            filesize: 987328,
-            disknum: 8000,
+            filename: 'Payment.pdf',
+            filesize: 184000,
+            disknum: 46,
             desc: "LET's GOOO",
         },
     });
