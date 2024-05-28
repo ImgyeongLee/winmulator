@@ -1,4 +1,8 @@
 import LeftSubMenus from "@/components/application/apps/myComputer/leftSubMenus";
+import RightBody from "@/components/application/apps/myComputer/rightBody";
+import {cn} from "@/app/lib/utils";
+import {useSelector} from "react-redux";
+import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
 
 export default function MyComputer() {
     const items = {
@@ -15,13 +19,23 @@ export default function MyComputer() {
         ]
     }
 
+    const appsState = useSelector(getAppsState)
+    const focusedAppId = useSelector(getFocusedAppId)
+    const appState = appsState[focusedAppId]
+    const heightClass = appState.height < 516 ? { height: `${appState.height - 110}px` } : { height: '100%' };
+
 
     return (
-        <div className={"app-body grid grid-cols-6 min-h-full"}>
-            <div className={"left-menu col-span-2 h-full"}>
+        <div
+            className={cn("app-body grid grid-cols-6 h-full overflow-auto")}
+            style={heightClass}
+        >
+            <div className={"left-menu col-span-2 h-full overflow-auto"}>
                 <LeftSubMenus showAbout={true} items={items} />
             </div>
-            <div className={"right-body col-span-4 bg-neutral-50 w-full "}>Right</div>
+            <div className={"right-body col-span-4 bg-neutral-50 w-full h-full overflow-auto"}>
+                <RightBody />
+            </div>
         </div>
     )
 }
