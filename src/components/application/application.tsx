@@ -4,6 +4,10 @@ import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
+import MyComputer from "@/components/application/apps/myComputer";
+import FloppyDisk from "@/components/application/apps/floppyDisk";
+import Recycle from "@/components/application/apps/recycle";
+import About from "@/components/application/apps/About";
 
 const RESIZE_MARGIN = 5
 
@@ -37,6 +41,12 @@ const SubheaderOption: React.FC<SubheaderOptionProps> = ( {name} ) => {
 const Application: React.FC<ApplicationProps> = ( {appState} ) => {
     const [isMoving, setIsMoving] = useState<boolean>(false)
     const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({x: 0, y: 0})
+    const appMainContents = [
+        <MyComputer key={"myComputer"}/>,
+        <FloppyDisk key={"floppyDisk"}/>,
+        <Recycle key={"recycleBin"}/>,
+        <About key={"about_docx_file"} />
+    ]
 
     const focusedAppId = useSelector(getFocusedAppId)
     const dispatch = useDispatch()
@@ -287,7 +297,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"content px-2 flex-grow"}>Main content of the app</div>
+                            <div className={"content px-2 flex-grow"}>{appMainContents[appState.id]}</div>
                         </div>
                     </div>
                 </div>

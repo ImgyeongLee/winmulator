@@ -80,7 +80,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
                     alt="windowsXP taskbar"
                     width={100}
                     height={100}
-                    className="z-105 w-[140px] cursor-pointer hover:brightness-110"
+                    className="z-105 w-[130px] cursor-pointer hover:brightness-110"
                 />
             </button>
             <div className={'bg-taskbar-gradient w-full h-[30px] ml-[-3px] z-5 ' + 'border border-xp-taskbar '}>
