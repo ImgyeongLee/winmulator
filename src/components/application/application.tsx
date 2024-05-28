@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp } from '@/redux/appSlice';
 import MyComputer from '@/components/application/apps/myComputer/myComputer';
 import FloppyDisk from '@/components/application/apps/floppyDisk';
-import Recycle from '@/components/application/apps/recycle';
+import Recycle from '@/components/application/apps/recycleBin/recycleBin';
 import About from '@/components/application/apps/About';
 
 const RESIZE_MARGIN = 5;
@@ -123,8 +123,8 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
     };
 
     const handleRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
     };
 
     return (
