@@ -16,7 +16,7 @@ export default function StartMenu() {
 
     ]
     return (
-        <div className={"ml-[2px] main-container absolute bottom-[33px] flex flex-col justify-start  " +
+        <div className={"ml-[2px] main-container absolute z-500 bottom-[33px] flex flex-col justify-start  " +
             " w-[380px] h-[500px] rounded-[8px] bg-xp-start-menu xp-box-shadow"}>
             <div
                 className={"header rounded-[8px] flex items-center gap-2 xp-start-menu-header-gradient px-1 py-2"}
