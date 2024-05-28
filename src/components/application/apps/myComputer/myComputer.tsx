@@ -24,13 +24,13 @@ export default function MyComputer() {
     const appsState = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
     const appState = focusedAppId != null ? Number(focusedAppId) === 0 ? appsState[focusedAppId] : undefined : undefined
-    const height = appState && appState.height || appsState[0].height
+    const height = appState ? appState.fullSize ? -1 : appState.height || appsState[1].height : 450
 
     return (
         <div
             className={cn("app-body grid grid-cols-6 overflow-auto")}
             style={{
-                height: height - 110
+                height: height === -1 ? '100vh': height - 110
             }}
         >
             <div className={"left-menu col-span-2 h-full overflow-auto"}>
