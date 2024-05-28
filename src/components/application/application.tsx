@@ -228,7 +228,10 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
                         className={cn('container min-w-full px-1 flex-grow flex pb-1', {
                             'min-w-[100vw]': appState.fullSize,
                         })}>
-                        <div className={'body flex-grow flex flex-col bg-xp-right-click-menu overflow-auto h-fit'}>
+                        <div
+                            className={
+                                'body h-full flex-grow flex flex-col bg-xp-right-click-menu overflow-auto h-fit'
+                            }>
                             <div className={'subheader px-1 flex gap-1 xp-app-bb-divider text-[0.8rem]'}>
                                 <SubheaderOption name={'File'} />
                                 <SubheaderOption name={'Edit'} />
@@ -237,105 +240,114 @@ const Application: React.FC<ApplicationProps> = ({ appState }) => {
                                 <SubheaderOption name={'Tools'} />
                                 <SubheaderOption name={'Help'} />
                             </div>
-                            <div className={'controls px-1 py-1 flex flex-row xp-app-bb-divider text-[0.8rem] '}>
-                                <div className={'opacity-50 flex items-center cursor-not-allowed'}>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appControls/xp_back.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                    <h3 className={'text-[0.6rem]'}>Back</h3>
-                                    <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
-                                </div>
-                                <div className={'ml-2 opacity-50 flex items-center cursor-not-allowed'}>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appControls/xp_forward.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                    <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
-                                </div>
-                                <div
-                                    className={
-                                        'ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer'
-                                    }>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appControls/xp_folder_green_arrow.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                </div>
-                                <div className={'ml-2 flex items-center hover:brightness-105 cursor-pointer'}>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appControls/xp_search.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                    <h3>Search</h3>
-                                </div>
-                                <div
-                                    className={
-                                        'ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer'
-                                    }>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appIcons/xp_folders_open_empty.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                    <h3 className={'ml-2'}>Folders</h3>
-                                </div>
-                                <div className={'ml-2 pr-2 flex items-center hover:brightness-105 cursor-pointer'}>
-                                    <Image
-                                        width={25}
-                                        height={25}
-                                        src={'/xp/appControls/xp_change_folder_view.webp'}
-                                        alt={'back arrow button'}
-                                    />
-                                    <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
-                                </div>
-                            </div>
-                            <div className={'currentPath px-2 flex text-[0.8rem] xp-app-bb-divider'}>
-                                <h3 className={'mr-1'}>Address</h3>
-                                <div className={'flex-grow border border-xp-taskbar-300 cursor-pointer'}>
-                                    <div className={'ml-1 flex items-center gap-2 '}>
-                                        <Image
-                                            width={15}
-                                            height={10}
-                                            src={appState.path}
-                                            alt={appState.label + ' icon'}
-                                            className={'h-4'}
-                                        />
-                                        <h1>{appState.label}</h1>
-                                        <div className={'ml-auto mr-[1px]'}>
+                            {appState.id != 3 && (
+                                <>
+                                    <div
+                                        className={'controls px-1 py-1 flex flex-row xp-app-bb-divider text-[0.8rem] '}>
+                                        <div className={'opacity-50 flex items-center cursor-not-allowed'}>
                                             <Image
-                                                width={15}
-                                                height={10}
-                                                src={'/xp/appControls/xp_app_dropdown.webp'}
-                                                alt={appState.label + ' icon'}
-                                                className={'h-4'}
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appControls/xp_back.webp'}
+                                                alt={'back arrow button'}
+                                            />
+                                            <h3 className={'text-[0.6rem]'}>Back</h3>
+                                            <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
+                                        </div>
+                                        <div className={'ml-2 opacity-50 flex items-center cursor-not-allowed'}>
+                                            <Image
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appControls/xp_forward.webp'}
+                                                alt={'back arrow button'}
+                                            />
+                                            <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
+                                        </div>
+                                        <div
+                                            className={
+                                                'ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer'
+                                            }>
+                                            <Image
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appControls/xp_folder_green_arrow.webp'}
+                                                alt={'back arrow button'}
                                             />
                                         </div>
+                                        <div className={'ml-2 flex items-center hover:brightness-105 cursor-pointer'}>
+                                            <Image
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appControls/xp_search.webp'}
+                                                alt={'back arrow button'}
+                                            />
+                                            <h3>Search</h3>
+                                        </div>
+                                        <div
+                                            className={
+                                                'ml-2 pr-2 flex items-center hover:brightness-105 border-r border-gray-400 cursor-pointer'
+                                            }>
+                                            <Image
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appIcons/xp_folders_open_empty.webp'}
+                                                alt={'back arrow button'}
+                                            />
+                                            <h3 className={'ml-2'}>Folders</h3>
+                                        </div>
+                                        <div
+                                            className={
+                                                'ml-2 pr-2 flex items-center hover:brightness-105 cursor-pointer'
+                                            }>
+                                            <Image
+                                                width={25}
+                                                height={25}
+                                                src={'/xp/appControls/xp_change_folder_view.webp'}
+                                                alt={'back arrow button'}
+                                            />
+                                            <IoTriangleSharp className={'ml-2 rotate-180 text-[0.45rem]'} />
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div className={'flex items-center ml-1 mr-2 cursor-pointer'}>
-                                        <Image
-                                            width={15}
-                                            height={10}
-                                            src={'/xp/appControls/xp_green_go_forward.webp'}
-                                            alt={appState.label + ' icon'}
-                                            className={'h-4'}
-                                        />
-                                        <h1 className={'ml-1'}>Go</h1>
+                                    <div className={'currentPath px-2 flex text-[0.8rem] xp-app-bb-divider'}>
+                                        <h3 className={'mr-1'}>Address</h3>
+                                        <div className={'flex-grow border border-xp-taskbar-300 cursor-pointer'}>
+                                            <div className={'ml-1 flex items-center gap-2 '}>
+                                                <Image
+                                                    width={15}
+                                                    height={10}
+                                                    src={appState.path}
+                                                    alt={appState.label + ' icon'}
+                                                    className={'h-4'}
+                                                />
+                                                <h1>{appState.label}</h1>
+                                                <div className={'ml-auto mr-[1px]'}>
+                                                    <Image
+                                                        width={15}
+                                                        height={10}
+                                                        src={'/xp/appControls/xp_app_dropdown.webp'}
+                                                        alt={appState.label + ' icon'}
+                                                        className={'h-4'}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className={'flex items-center ml-1 mr-2 cursor-pointer'}>
+                                                <Image
+                                                    width={15}
+                                                    height={10}
+                                                    src={'/xp/appControls/xp_green_go_forward.webp'}
+                                                    alt={appState.label + ' icon'}
+                                                    className={'h-4'}
+                                                />
+                                                <h1 className={'ml-1'}>Go</h1>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className={'app-container flex-grow overflow-auto'}>
+                                </>
+                            )}
+
+                            <div className={'app-container h-full flex-grow overflow-auto'}>
                                 {appMainContents[appState.id]}
                             </div>
                         </div>
