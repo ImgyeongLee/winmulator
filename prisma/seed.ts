@@ -13,6 +13,7 @@ async function main() {
             email: 'test@gmail.com',
             filename: 'postman',
             filesize: 987328,
+            disknum: 8000,
         },
     });
 }
