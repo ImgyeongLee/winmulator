@@ -34,7 +34,7 @@ export default function StartMenu() {
     ]
 
     return (
-        <div className={"ml-[2px] main-container absolute z-500 bottom-[33px] flex flex-col justify-start  " +
+        <div className={"ml-[0.5px] main-container absolute z-99 bottom-[33px] flex flex-col justify-start  " +
             " w-[400px] h-fit rounded-[8px] bg-xp-start-menu xp-box-shadow"}>
             <div
                 className={"header rounded-[8px] flex items-center gap-2 xp-start-menu-header-gradient px-1 py-2"}
@@ -125,10 +125,22 @@ export default function StartMenu() {
                 </div>
             </div>
             <div
-                className={"footer flex flex-row"}
+                className={"footer flex flex-row items-center justify-end h-[40px]"}
             >
-                <h3>Log off</h3>
-                <h3>Turn off</h3>
+                <button className={"flex mr-[18px] items-center text-[0.9rem] p-1 cursor-pointer hover:bg-xp-taskbar-selected/50"}>
+                    <Image
+                        width={20} height={20} src={'/xp/startMenu/log_off.webp'} alt={'log off button'}
+                        className={'mr-1'}
+                    />
+                    <h3>Log off</h3>
+                </button>
+                <button className={"flex mr-4 items-center text-[0.9rem] p-1 cursor-pointer hover:bg-xp-taskbar-selected/50"}>
+                    <Image
+                        width={20} height={20} src={'/xp/startMenu/turn_off.webp'} alt={'log off button'}
+                        className={'mr-1'}
+                    />
+                    <h3>Shut Down</h3>
+                </button>
             </div>
         </div>
     )

@@ -48,6 +48,11 @@ const config: Config = {
             },
             filter: {
                 'black-tint': 'brightness(0) invert(1)'
+            },
+            zIndex: {
+                '105': '105',
+                '100': '100',
+                '5': '5'
             }
         },
     },

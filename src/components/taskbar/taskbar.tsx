@@ -29,7 +29,6 @@ interface AppState {
 const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartMenu }) => {
     const [isMute, setIsMute] = useState<boolean>(false);
     const [currentTime, setCurrentTime] = useState<Date>(new Date());
-    // const [tbVisible, setTbVisible] = useState<boolean>(false)
 
     const dispatch = useDispatch();
     const apps: { [key: string]: AppState } = useSelector(getAppsState);
@@ -79,12 +78,12 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
                 <Image
                     src="/windowsXP_taskbar_start.webp"
                     alt="windowsXP taskbar"
-                    width={120}
+                    width={100}
                     height={100}
-                    className="p-0 m-0 cursor-pointer hover:brightness-110 z-10"
+                    className="z-105 w-[140px] cursor-pointer hover:brightness-110"
                 />
             </button>
-            <div className={'bg-taskbar-gradient z-1 w-full h-[30px] ml-[-4px] z-1 ' + 'border border-xp-taskbar '}>
+            <div className={'bg-taskbar-gradient w-full h-[30px] ml-[-3px] z-5 ' + 'border border-xp-taskbar '}>
                 <div className={'flex ml-2 gap-[1.7px] mt-[5px] cursor-pointer'}>
                     {Object.keys(apps).map((id, index) => {
                         return (
@@ -130,7 +129,7 @@ const Taskbar: React.FC<TaskbarProps> = ({ theme, startMenuVisible, toggleStartM
                     alt={'windowsXP security risk awareness icon'}
                     width={200}
                     height={400}
-                    className={'w-5 h-5 cursor-pointer hover:brightness-110 z-2'}
+                    className={'w-5 h-5 cursor-pointer hover:brightness-110 z-5'}
                 />
                 <h3 className={'ml-auto mr-1 text-center text-[0.7rem]'}>{formatTime(currentTime)}</h3>
             </div>
