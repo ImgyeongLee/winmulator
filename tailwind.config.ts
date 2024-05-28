@@ -14,8 +14,8 @@ const config: Config = {
                 'xp-taskbar-selected': '#1F52B7',
                 'xp-taskbar-300': '#AEB0FF',
                 'xp-taskbar_setting': '#1390e9',
-                'xp-app-select': "#2951f0",
-                'xp-right-click-menu': "#F5F3F8",
+                'xp-app-select': '#2951f0',
+                'xp-right-click-menu': '#F5F3F8',
                 'w7-taskbar': '',
                 'w2000-taskbar': '',
             },
@@ -23,6 +23,7 @@ const config: Config = {
                 xp: "url('/windowsXP.webp')",
                 w7: "url('/windows7.webp')",
                 w2000: "url('/windows2000.webp')",
+                hiring: "url('/hiring.webp')",
             },
             keyframes: {
                 rainbow: {
@@ -40,11 +41,11 @@ const config: Config = {
             },
             rotate: {
                 '90': '90deg',
-                '180': '180deg'
+                '180': '180deg',
             },
             filter: {
-                'black-tint': 'brightness(0) invert(1)'
-            }
+                'black-tint': 'brightness(0) invert(1)',
+            },
         },
     },
     plugins: [],
