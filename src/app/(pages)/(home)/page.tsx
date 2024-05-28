@@ -9,7 +9,6 @@ import RightClickMenu from '@/components/rightClickMenu';
 import Applications from '@/components/application/applications';
 import { getAppsState, getFocusedAppId, moveApp, resizeApp } from '@/redux/appSlice';
 import { cn } from '@/app/lib/utils';
-import { FloppyDiskProgramWin2000WinXP } from '@/app/(components)/executable';
 
 export default function Home() {
     const listOfIcons: [number, number, string, string, string, string][] = [

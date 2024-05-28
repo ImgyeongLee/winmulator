@@ -3,7 +3,7 @@
 import { cn } from '@/app/lib/utils';
 import { useSelector } from 'react-redux';
 import { getAppsState, getFocusedAppId } from '@/redux/appSlice';
-import { FloppyDiskProgramWin2000WinXP } from '@/app/(components)/executable';
+import FloppyPage from '@/app/(pages)/floppy/page';
 
 export default function FloppyDisk() {
     const appsState = useSelector(getAppsState);
@@ -17,7 +17,7 @@ export default function FloppyDisk() {
             style={{
                 height: height === -1 ? '100vh' : height - 110,
             }}>
-            <FloppyDiskProgramWin2000WinXP />
+            <FloppyPage />
         </div>
     );
 }

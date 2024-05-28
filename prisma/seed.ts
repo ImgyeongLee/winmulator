@@ -14,6 +14,7 @@ async function main() {
             filename: 'postman',
             filesize: 987328,
             disknum: 8000,
+            desc: "LET's GOOO",
         },
     });
 }

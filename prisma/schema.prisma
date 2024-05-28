@@ -21,4 +21,5 @@ model FloppyData {
   filesize  Int           @default(0)
   filename  String
   disknum   Int           @default(0)
+  desc      String        @default("No Description")
 }

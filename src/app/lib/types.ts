@@ -4,6 +4,7 @@ export interface FloppyData {
     filesize: number;
     filename: string;
     disknum: number;
+    desc: string;
 }
 
 export type FloppyDataFields = {
@@ -12,4 +13,12 @@ export type FloppyDataFields = {
     filesize: number;
     filename: string;
     disknum: number;
+    desc: string;
+};
+
+export type FloppyDataFormFields = {
+    username: string;
+    email: string;
+    filename: string;
+    desc: string;
 };

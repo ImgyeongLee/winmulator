@@ -1,20 +1,92 @@
 'use client';
 
 import { Lora, Pixelify_Sans } from 'next/font/google';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { cn } from '../lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useRef, ChangeEvent, useEffect } from 'react';
 import { createFloppyData, readFloppyData, readTopFloppyData } from '../lib/actions';
-import { FloppyData, FloppyDataFields } from '../lib/types';
+import { FloppyData, FloppyDataFields, FloppyDataFormFields } from '../lib/types';
 const lora = Lora({ subsets: ['latin'] });
 const pixelify_sans = Pixelify_Sans({ subsets: ['latin'] });
 
 export function FileUploadModal({ onClick }: { onClick: () => void }) {
+    const { register, handleSubmit, formState, reset } = useForm<FloppyDataFormFields>();
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [fileSize, setFileSize] = useState<number>(-1);
     const [fileName, setFileName] = useState<string>('');
     const [hasFlie, setHasFile] = useState<boolean>(false);
+    const [isError, setIsError] = useState<boolean>(false);
+    const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+    const onSubmit: SubmitHandler<FloppyDataFormFields> = async (data) => {
+        const { username, email, filename, desc } = data;
+        const input: FloppyDataFields = {
+            username: username,
+            email: email,
+            filename: filename.length == 0 ? fileName : filename,
+            desc: desc,
+            filesize: fileSize,
+            disknum: calculateFloppyDisk(fileSize),
+        };
+
+        try {
+            await createFloppyData(input);
+        } catch (error) {
+            console.error(error);
+            setIsError(true);
+        } finally {
+            setIsSuccess(true);
+        }
+    };
+
+    useEffect(() => {
+        if (formState.isSubmitSuccessful) {
+            reset({ username: '', email: '', filename: '', desc: '' });
+        }
+    }, [formState]);
+
+    const renderForm = () => {
+        return (
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="flex flex-col p-3 gap-1 bg-[#FFCC33] border-4 border-[#9C0000] w-full">
+                <h1 className="text-[#9C0000] font-bold text-2xl mb-3">Leave your record!</h1>
+                <input
+                    className="py-1 px-2 border-[3px] border-[#9C0000]"
+                    {...register('username')}
+                    type="text"
+                    required
+                    placeholder="Your username"
+                />
+                <input
+                    className="py-1 px-2 border-[3px] border-[#9C0000]"
+                    {...register('email')}
+                    type="email"
+                    required
+                    placeholder="Your email"
+                />
+                <input
+                    className="py-1 px-2 border-[3px] border-[#9C0000]"
+                    {...register('filename')}
+                    type="text"
+                    placeholder="Edit your filename (Default: Your original filename)"
+                />
+                <input
+                    className="py-1 px-2 border-[3px] border-[#9C0000]"
+                    {...register('desc')}
+                    type="text"
+                    placeholder="Description..."
+                />
+                <button type="submit" className="animate-rainbow bg-gray-400 mt-4 py-3 border-4 border-black">
+                    Submit!
+                </button>
+                {isError && <div className="text-center text-[#9C0000]">Something went wrong. Try again!</div>}
+                {isSuccess && <div className="text-center text-[#06d703]">Submitted!</div>}
+            </form>
+        );
+    };
 
     const handleEventBubbling = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -22,7 +94,6 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
 
     const handleButtonClick = () => {
         if (fileInputRef.current) {
-            console.log("I don't know what the fuck is going on");
             fileInputRef.current.click();
         }
     };
@@ -72,27 +143,9 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
                     disks!
                 </div>
             )}
+            {hasFlie && renderForm()}
         </section>
     );
-}
-
-export function RecordForm() {
-    const [input, setInput] = useState<FloppyDataFields>();
-    const [isDone, setIsDone] = useState<boolean>(true);
-    const handleSubmit = async () => {
-        if (input) {
-            setIsDone(false);
-            try {
-                const user = await createFloppyData(input);
-            } catch (error) {
-                console.log(error);
-                setIsDone(true);
-            } finally {
-                setIsDone(true);
-            }
-        }
-    };
-    return <form></form>;
 }
 
 export function LeaderBoard() {
@@ -114,6 +167,7 @@ export function LeaderBoard() {
                 }
                 setTopUser(result);
                 setData(data);
+                console.log(data);
             } catch (error) {
                 setError('ERROR!');
             } finally {
@@ -136,27 +190,31 @@ export function LeaderBoard() {
         <div className="w-full">
             <h1 className="font-semibold my-3">++ Leaderboard ++</h1>
             <div className="mb-3">
-                <div className="font-bold">Top user: {topUser?.username}</div>
+                <div className="font-bold animate-rainbow">Top user: {topUser?.username}</div>
                 <div className="font-bold">{topUser?.disknum} floppy disks.</div>
                 <div className="text-sm">
-                    &#40;Submission: {topUser?.filename} {topUser?.filesize} Bytes&#41;
+                    &#40;Submission: {topUser?.filename} with {topUser?.filesize} Bytes&#41;
                 </div>
             </div>
             <div className="border-4 border-[#9C0000] bg-white flex flex-col justify-center items-center">
                 <div className="bg-[#9C0000] p-2 font-bold text-white w-full">Ranking</div>
                 <table className="self-center text-center w-full">
                     <tr className="w-full max-md:text-xs">
+                        <th>#</th>
                         <th>Username</th>
                         <th># Disk</th>
                         <th>Filename</th>
+                        <th>Description</th>
                         <th>Filesize</th>
                     </tr>
                     {data.map((d, i) => {
                         return (
                             <tr key={i} className="bg-slate-100 w-full max-md:text-xs">
+                                <td>{i + 1}</td>
                                 <td>{d.username}</td>
                                 <td>{d.disknum}</td>
                                 <td>{d.filename}</td>
+                                <td>{d.desc}</td>
                                 <td>{d.filesize}</td>
                             </tr>
                         );
