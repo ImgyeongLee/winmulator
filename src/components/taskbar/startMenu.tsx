@@ -4,7 +4,7 @@ import {IoTriangleSharp} from "react-icons/io5";
 import React from "react";
 
 export default function StartMenu() {
-    const startMenuLeftItems: [path: string, label: string, sublabel:string, width: number][] = [
+    const startMenuLeftItems: [path: string, label: string, sublabel: string, width: number][] = [
         ['/xp/startMenu/IE.webp', 'Internet', 'Internet Explorer', 20],
         ['/xp/startMenu/email.webp', 'E-mail', 'Contact the developers', 20],
         ['', '', '', -1],
