@@ -4,9 +4,8 @@ import Image from "next/image";
 import {IoTriangleSharp} from "react-icons/io5";
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getFocusedAppId, moveApp, removeApp, toggleFullSizeApp, toggleMinimizeApp} from "@/redux/appSlice";
-import {number} from "prop-types";
 
-const RESIZE_MARGIN = 10
+const RESIZE_MARGIN = 5
 
 interface AppState {
     id: number;
@@ -70,7 +69,7 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
 
     const handleMouseDown = (e: React.MouseEvent) => {
         // ignore the resize part of the header
-        if (!(Math.abs(appState.y - e.clientY) <= 5)) {
+        if (!(Math.abs(appState.y - e.clientY) <= RESIZE_MARGIN)) {
             const offsetX = e.clientX - appState.x
             const offsetY = e.clientY - appState.y
             setDragOffset({x: offsetX, y: offsetY})
@@ -134,7 +133,6 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                 height={10}
                                 src={appState.path}
                                 alt={appState.label + " icon"}
-                                className={"h-4"}
                             />
                             <h1 className={"xp-text-shadow text-[0.9rem]"}>{appState.label}</h1>
                         </div>
@@ -175,6 +173,8 @@ const Application: React.FC<ApplicationProps> = ( {appState} ) => {
                                         width={30}
                                         height={30}
                                         style={{
+                                            width: 'auto',
+                                            height: 'auto',
                                             objectFit: 'cover',
                                         }}
                                         className="rounded-[2px]"

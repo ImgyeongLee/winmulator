@@ -6,6 +6,7 @@ import { cn } from "@/app/lib/utils"
 import Image from "next/image"
 import {useDispatch, useSelector} from "react-redux";
 import {focusApp, getAppsState, getFocusedAppId, toggleMinimizeApp} from "@/redux/appSlice";
+import StartMenu from "@/components/taskbar/startMenu";
 
 interface TaskbarProps {
     theme: string;
@@ -25,6 +26,7 @@ interface AppState {
 const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     const [isMute, setIsMute] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
+    const [tbVisible, setTbVisible] = useState<boolean>(false)
 
     const dispatch = useDispatch()
     const apps: { [key: string]: AppState} = useSelector(getAppsState)
@@ -56,6 +58,11 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
         }))
     }
 
+    const handleTaskbarClick = () => {
+        console.log("taskbar clicked")
+        setTbVisible(prev => !prev)
+    }
+
     return (
         <div
             style={{
@@ -63,13 +70,17 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
             }}
             className={`text-center text-white flex flex-row justify-between items-center`}
         >
-            <Image
-                src="/windowsXP_taskbar_start.webp"
-                alt="windowsXP taskbar"
-                width={120}
-                height={100}
-                className="p-0 m-0 cursor-pointer hover:brightness-110 z-10"
-            />
+            <button
+                onClick={handleTaskbarClick}
+            >
+                <Image
+                    src="/windowsXP_taskbar_start.webp"
+                    alt="windowsXP taskbar"
+                    width={120}
+                    height={100}
+                    className="p-0 m-0 cursor-pointer hover:brightness-110 z-10"
+                />
+            </button>
             <div
                 className={"bg-taskbar-gradient z-1 w-full h-[30px] ml-[-4px] z-1 " +
                     "border border-xp-taskbar "}
@@ -116,8 +127,9 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                     height={400}
                     className={"w-5 h-5 cursor-pointer hover:brightness-110 z-2"}
                 />
-                <h3 className={"ml-auto mr-1 text-center text-[0.9rem]"}>{formatTime(currentTime)}</h3>
+                <h3 className={"ml-auto mr-1 text-center text-[0.7rem]"}>{formatTime(currentTime)}</h3>
             </div>
+            { tbVisible && <StartMenu /> }
         </div>
     );
 };
