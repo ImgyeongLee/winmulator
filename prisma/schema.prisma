@@ -16,6 +16,7 @@ datasource db {
 model FloppyData {
   id        String        @id @default(cuid())
   createdAt DateTime      @default(now())
+  email     String        @unique
   username  String
   filesize  Int           @default(0)
   filename  String
