@@ -4,7 +4,9 @@ import { Lora, Pixelify_Sans } from 'next/font/google';
 import { cn } from '../lib/utils';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useState, useRef, ChangeEvent } from 'react';
+import { useState, useRef, ChangeEvent, useEffect } from 'react';
+import { createFloppyData, readFloppyData, readTopFloppyData } from '../lib/actions';
+import { FloppyData, FloppyDataFields } from '../lib/types';
 const lora = Lora({ subsets: ['latin'] });
 const pixelify_sans = Pixelify_Sans({ subsets: ['latin'] });
 
@@ -51,8 +53,83 @@ export function FileUploadModal({ onClick }: { onClick: () => void }) {
     );
 }
 
-export function LeaderBoardModal() {
-    return <article>LeaderBoard</article>;
+export function RecordForm() {
+    const [input, setInput] = useState<FloppyDataFields>();
+    const [isDone, setIsDone] = useState<boolean>(true);
+    const handleSubmit = async () => {
+        if (input) {
+            setIsDone(false);
+            try {
+                const user = await createFloppyData(input);
+            } catch (error) {
+                console.log(error);
+                setIsDone(true);
+            } finally {
+                setIsDone(true);
+            }
+        }
+    };
+    return <form></form>;
+}
+
+export function LeaderBoard() {
+    const [topUser, setTopUser] = useState<FloppyData>();
+    const [data, setData] = useState<FloppyData[]>([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState<string>('');
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const result = await readTopFloppyData();
+                const data = await readFloppyData();
+                if (!result) {
+                    throw new Error('Network response was not ok');
+                }
+                if (!data) {
+                    throw new Error('Network response was not ok');
+                }
+                setTopUser(result);
+                setData(data);
+            } catch (error) {
+                setError('ERROR!');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>Error</div>;
+    }
+
+    return (
+        <div>
+            <h1 className="font-semibold">Leaderboard</h1>
+            <div>
+                <div>
+                    Top user: {topUser?.username} - {topUser?.disknum} floppy disks.
+                </div>
+                <div>
+                    &#40;Submission: {topUser?.filename} / {topUser?.filesize}&#41;
+                </div>
+            </div>
+            <div>
+                <div>Board</div>
+                <div>
+                    {data.map((d, i) => {
+                        return <div key={i}>{d.username}</div>;
+                    })}
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export function FloppyDiskProgramWin2000WinXP() {
@@ -115,7 +192,7 @@ export function FloppyDiskProgramWin2000WinXP() {
                         </div>
                     </div>
                     {isFileToggle && <FileUploadModal onClick={handleCancelToggle} />}
-                    {isBoardToggle && <LeaderBoardModal />}
+                    {isBoardToggle && <LeaderBoard />}
                 </article>
             </section>
             <footer className="text-xs py-7">&copy; 2024 Hla Htun and Imgyeong Lee. All rights reserved.</footer>

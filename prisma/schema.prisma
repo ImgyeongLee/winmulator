@@ -20,4 +20,5 @@ model FloppyData {
   username  String
   filesize  Int           @default(0)
   filename  String
+  disknum   Int           @default(0)
 }
