@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { focusApp, getAppsState, getFocusedAppId, toggleMinimizeApp } from '@/redux/appSlice';
 import StartMenu from '@/components/taskbar/startMenu';
 
+
 interface TaskbarProps {
     theme: string;
     startMenuVisible: boolean;

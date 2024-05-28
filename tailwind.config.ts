@@ -14,8 +14,8 @@ const config: Config = {
                 'xp-taskbar-selected': '#1F52B7',
                 'xp-taskbar-300': '#AEB0FF',
                 'xp-taskbar_setting': '#1390e9',
-                'xp-app-select': '#2951f0',
-                'xp-right-click-menu': '#F5F3F8',
+                'xp-app-select': "#2951f0",
+                'xp-right-click-menu': "#F5F3F8",
                 'xp-start-menu': '#2C7DE1',
                 'xp-start-menu-right-side': '#CBE3FF',
                 'xp-start-menu-right-border': '#99c1f8',
@@ -44,11 +44,11 @@ const config: Config = {
             },
             rotate: {
                 '90': '90deg',
-                '180': '180deg',
+                '180': '180deg'
             },
             filter: {
-                'black-tint': 'brightness(0) invert(1)',
-            },
+                'black-tint': 'brightness(0) invert(1)'
+            }
         },
     },
     plugins: [],
