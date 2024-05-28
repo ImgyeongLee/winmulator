@@ -7,22 +7,22 @@ import {getAppsState, getFocusedAppId} from "@/redux/appSlice";
 export default function MyComputer() {
     const items = {
         'System Tasks': [
-            ['/xp/appControls/view_sys_info.webp', 'View system information'],
-            ['/xp/appControls/add_remove_programs.webp', 'Add or remove programs'],
-            ['/xp/appControls/change_settings.webp', 'Change a setting']
+            { path: '/xp/appControls/view_sys_info.webp', label: 'View system information' },
+            { path: '/xp/appControls/add_remove_programs.webp', label: 'Add or remove programs' },
+            { path: '/xp/appControls/change_settings.webp', label: 'Change a setting' }
         ],
         'Other Places': [
-            ['/xp/appControls/my_network.webp', 'My Network Places'],
-            ['/xp/appIcons/folder_filled_document.webp', 'My Documents'],
-            ['/xp/appIcons/folder_shared.webp', 'Shared Documents'],
-            ['/xp/startMenu/control_panel.webp', 'Control Panel'],
+            { path: '/xp/appControls/my_network.webp', label: 'My Network Places' },
+            { path: '/xp/appIcons/folder_filled_document.webp', label: 'My Documents' },
+            { path: '/xp/appIcons/folder_shared.webp', label: 'Shared Documents' },
+            { path: '/xp/startMenu/control_panel.webp', label: 'Control Panel' }
         ]
     }
 
     const appsState = useSelector(getAppsState)
     const focusedAppId = useSelector(getFocusedAppId)
-    const appState = appsState[focusedAppId]
-    const heightClass = appState.height < 516 ? { height: `${appState.height - 110}px` } : { height: '100%' };
+    const appState = focusedAppId ? appsState[focusedAppId] : undefined
+    const heightClass = appState && appState.height < 516 ? { height: `${appState.height - 110}px` } : { height: '100%' };
 
 
     return (
@@ -31,7 +31,7 @@ export default function MyComputer() {
             style={heightClass}
         >
             <div className={"left-menu col-span-2 h-full overflow-auto"}>
-                <LeftSubMenus showAbout={true} items={items} />
+                <LeftSubMenus items={items} showAbout={true} />
             </div>
             <div className={"right-body col-span-4 bg-neutral-50 w-full h-full overflow-auto"}>
                 <RightBody />

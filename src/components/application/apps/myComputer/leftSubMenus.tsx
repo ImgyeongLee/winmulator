@@ -9,8 +9,12 @@ interface Item {
     label: string;
 }
 
-interface LeftSubMenuProps {
+interface Items {
     [key: string]: Item[]
+}
+
+interface LeftSubMenuProps {
+    items: Items
     showAbout: boolean
 }
 
@@ -28,7 +32,7 @@ const LeftSubMenus: React.FC<LeftSubMenuProps> = ({items, showAbout}) => {
                             <Image width={20} height={20} src={'/xp/appControls/collapse.webp'} alt={"collapse button"} />
                         </div>
                         <div className={"mt-2 px-2"}>
-                            { items[title].map(([path, label], subIndex) => {
+                            { items[title].map(({path, label}, subIndex) => {
                                 return (
                                     <div key={subIndex+label+path} className={"flex gap-2"}>
                                         <Image
