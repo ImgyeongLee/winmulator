@@ -10,6 +10,8 @@ import StartMenu from "@/components/taskbar/startMenu";
 
 interface TaskbarProps {
     theme: string;
+    startMenuVisible: boolean;
+    toggleStartMenu: () => void;
 }
 
 interface AppState {
@@ -23,10 +25,10 @@ interface AppState {
     fullSize: boolean;
 }
 
-const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
+const Taskbar: React.FC<TaskbarProps> = ({theme, startMenuVisible, toggleStartMenu}) => {
     const [isMute, setIsMute] = useState<boolean>(false)
     const [currentTime, setCurrentTime] = useState<Date>(new Date())
-    const [tbVisible, setTbVisible] = useState<boolean>(false)
+    // const [tbVisible, setTbVisible] = useState<boolean>(false)
 
     const dispatch = useDispatch()
     const apps: { [key: string]: AppState} = useSelector(getAppsState)
@@ -59,8 +61,7 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
     }
 
     const handleTaskbarClick = () => {
-        console.log("taskbar clicked")
-        setTbVisible(prev => !prev)
+        toggleStartMenu()
     }
 
     return (
@@ -129,7 +130,7 @@ const Taskbar: React.FC<TaskbarProps> = ({theme}) => {
                 />
                 <h3 className={"ml-auto mr-1 text-center text-[0.7rem]"}>{formatTime(currentTime)}</h3>
             </div>
-            { tbVisible && <StartMenu /> }
+            { startMenuVisible && <StartMenu /> }
         </div>
     );
 };

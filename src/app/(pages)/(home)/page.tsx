@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import { setIconSelection } from '@/redux/iconSelectionSlice';
 import RightClickMenu from '@/components/rightClickMenu';
 import Applications from "@/components/application/applications";
-import {focusApp, getAppsState, getFocusedAppId, moveApp, resizeApp} from "@/redux/appSlice";
+import {getAppsState, getFocusedAppId, moveApp, resizeApp} from "@/redux/appSlice";
 import {cn} from "@/app/lib/utils";
 
 export default function Home() {
@@ -18,6 +18,7 @@ export default function Home() {
         [35, 35, '/xp_word_file.webp', 'windows xp word document file icon', '', 'About.docx'],
     ];
 
+    const [startMenuVisible, setStartMenuVisible] = useState<boolean>(false)
     const [menuVisible, setMenuVisible] = useState<boolean>(false);
     const [menuPosition, setMenuPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
@@ -35,7 +36,15 @@ export default function Home() {
             e.preventDefault();
             setMenuVisible(false);
         }
+
+        // startMenu toggle
+        startMenuVisible ? setStartMenuVisible(false) : null
     };
+
+    // toggle startMenu
+    const startMenuToggle = () => {
+        setStartMenuVisible(prev => !prev)
+    }
 
     // right click
     const handleRightClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -167,7 +176,7 @@ export default function Home() {
                 <Applications />
             </div>
             <RightClickMenu menuVisible={menuVisible} menuPosition={menuPosition} />
-            <Taskbar theme="xp" />
+            <Taskbar theme="xp" startMenuVisible={startMenuVisible} toggleStartMenu={startMenuToggle}/>
         </main>
     );
 }
