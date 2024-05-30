@@ -1,4 +1,3 @@
-
 # Stage 1: Build the Next.js app
 FROM node:20.5.1-alpine AS builder
 WORKDIR /app
