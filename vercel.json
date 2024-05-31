@@ -1,17 +1,3 @@
 {
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ],
-  "builds": [
-    {
-      "src": "next.config.js",
-      "use": "@vercel/next"
-    }
-  ],
-  "env": {
-    "DATABASE_URL": "@database_url"
-  }
+   "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
 }
